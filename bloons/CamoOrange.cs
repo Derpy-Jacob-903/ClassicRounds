@@ -8,7 +8,7 @@ using System;
 using UnityEngine.UIElements;
 using Il2CppNinjaKiwi.Common.ResourceUtils;
 
-namespace ClassicTowers.Bloons;
+namespace ClassicRounds.Bloons;
     public abstract class Olive : ModBloon //Pre BTD4 Black
 {
     public override string BaseBloon => BloonType.Purple;
@@ -21,41 +21,6 @@ namespace ClassicTowers.Bloons;
         bloonModel.AddToChildren(BloonType.Pink); //Not Camo
         bloonModel.AddToChildren(BloonType.Pink);
         bloonModel.bloonProperties = 0;
-    }
-}
-public class OliveRegrow : ModBloon<Olive>
-{
-    public override bool Regrow => true;
-    public override SpriteReference IconReference => (SpriteReference)VanillaSprites.Green;
-
-    public override void ModifyBaseBloonModel(BloonModel bloonModel)
-    {
-        bloonModel.MakeChildrenRegrow();
-    }
-}
-
-public class OliveCamo : ModBloon<Olive>
-{
-    public override bool Camo => true;
-    public override SpriteReference IconReference => (SpriteReference)VanillaSprites.Green;
-
-    public override void ModifyBaseBloonModel(BloonModel bloonModel)
-    {
-        bloonModel.MakeChildrenCamo();
-    }
-}
-
-public class OliveRegrowCamo : ModBloon<Olive>
-{
-    public override bool Regrow => true;
-    public override bool Camo => true;
-    public override SpriteReference IconReference => (SpriteReference)VanillaSprites.Green;
-    public override bool KeepBaseId => true;
-
-    public override void ModifyBaseBloonModel(BloonModel bloonModel)
-    {
-        bloonModel.MakeChildrenRegrow();
-        bloonModel.MakeChildrenCamo();
     }
 }
 public abstract class ClassicBlack : ModBloon //Pre BTD4 Black
@@ -121,8 +86,10 @@ public abstract class ClassicRainbow : ModBloon
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
-        bloonModel.AddToChildren(BloonID<ClassicBlack>(), 2);
-        bloonModel.AddToChildren(BloonID<ClassicWhite>(), 2);
+        bloonModel.AddToChildren(BloonID<ClassicBlack>());
+        bloonModel.AddToChildren(BloonID<ClassicWhite>());
+        bloonModel.AddToChildren(BloonID<ClassicBlack>());
+        bloonModel.AddToChildren(BloonID<ClassicWhite>());
         bloonModel.layerNumber--;
         bloonModel.layerNumber--;
     }
@@ -132,7 +99,7 @@ public abstract class ClassicSuperRainbow : ModBloon<ClassicRainbow>
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
-        bloonModel.AddToChildren(BloonID<ClassicSuperZebra>(), 2);
+        bloonModel.AddToChildren(BloonID<ClassicSuperZebra>(), 1);
         bloonModel.layerNumber--;
         bloonModel.layerNumber--;
     }

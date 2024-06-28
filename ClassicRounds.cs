@@ -20,16 +20,18 @@ using System.ComponentModel;
 using Il2CppAssets.Scripts.Data.Boss;
 using Il2CppAssets.Scripts.Models.Audio;
 using Il2CppAssets.Scripts.Models.Gameplay.Mods;
+using UnityEngine.UIElements;
+using ClassicRounds.Bloons;
 
-[assembly: MelonInfo(typeof(ClassicTowers.ClassicTowers), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
+[assembly: MelonInfo(typeof(ClassicRounds.ClassicRounds), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
-namespace ClassicTowers;
+namespace ClassicRounds;
 
-public class ClassicTowers : BloonsTD6Mod
+public class ClassicRounds : BloonsTD6Mod
 {
     public override void OnApplicationStart()
     {
-        ModHelper.Msg<ClassicTowers>("ClassicTowers loaded!");
+        ModHelper.Msg<ClassicRounds>("ClassicRounds loaded!");
     }
 
     static float BloonInterval(int curLevel)
@@ -92,32 +94,32 @@ public class ClassicTowers : BloonsTD6Mod
                 gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
             }
         }
-            public class BTD3Hard : ModGameMode
+        public class BTD3Hard : ModGameMode
+        {
+            public override string Difficulty => DifficultyType.Hard;
+
+            public override string BaseGameMode => GameModeType.None;
+
+            public override string DisplayName => "BTD3";
+
+            public override string Icon => VanillaSprites.CustomRoundIcon;
+
+            public override void ModifyBaseGameModeModel(ModModel gameModeModel)
             {
-                public override string Difficulty => DifficultyType.Hard;
-
-                public override string BaseGameMode => GameModeType.None;
-
-                public override string DisplayName => "BTD3";
-
-                public override string Icon => VanillaSprites.CustomRoundIcon;
-
-                public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-                {
-                    //BuildLevelHints(levelHints)
-                    gameModeModel.SetMkEnabled(false);
-                    gameModeModel.SetIncomeEnabled(false);
-                    gameModeModel.SetContinuesEnabled(false);
-                    gameModeModel.SetStartingHealth(50);
-                    gameModeModel.SetMaxHealth(50);
-                    gameModeModel.SetStartingRound(1);
-                    gameModeModel.SetEndingRound(50);
-                    gameModeModel.UseRoundSet<Btd3Rounds>();
-                    gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarm"));
-                    gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-CamoTrap"));
-                    gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-                }
+                //BuildLevelHints(levelHints)
+                gameModeModel.SetMkEnabled(false);
+                gameModeModel.SetIncomeEnabled(false);
+                gameModeModel.SetContinuesEnabled(false);
+                gameModeModel.SetStartingHealth(50);
+                gameModeModel.SetMaxHealth(50);
+                gameModeModel.SetStartingRound(1);
+                gameModeModel.SetEndingRound(50);
+                gameModeModel.UseRoundSet<Btd3Rounds>();
+                gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarm"));
+                gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-CamoTrap"));
+                gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
             }
+        }
 
         public class BTD3Impoppable : ModGameMode
         {
@@ -220,14 +222,14 @@ public class ClassicTowers : BloonsTD6Mod
             {
                 case 1: //reds
                     roundModel.AddBloonGroup("Red", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
-                        delay += BloonInterval(curLevel) * bloonCount;
+                    delay += BloonInterval(curLevel) * bloonCount;
                     return delay;
                 case 2: //blues
                     roundModel.AddBloonGroup("Blue", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                     delay += BloonInterval(curLevel) * bloonCount;
                     return delay;
                 case 3: //greens
-                    roundModel.AddBloonGroup("Green", bloonCount, delay, delay + BloonInterval(curLevel)*bloonCount);
+                    roundModel.AddBloonGroup("Green", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                     delay += BloonInterval(curLevel) * bloonCount;
                     return delay;
                 case 4: //Yellow
@@ -237,60 +239,60 @@ public class ClassicTowers : BloonsTD6Mod
                 case 5: //blacks
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("Black", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicBlack>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        roundModel.AddBloonGroup("Lead", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicLead>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
                 case 6: //White
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("White", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicWhite>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        roundModel.AddBloonGroup("Zebra", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicIce>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
                 case 7: //Lead
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("Lead", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicLead>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        roundModel.AddBloonGroup("LeadFortified", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicLead>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
                 case 8: //Rainbow
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("Rainbow", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicRainbow>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        roundModel.AddBloonGroup("Ceramic", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicRainbow>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
                 case 9: //Ceramic
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("Ceramic", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicCeramic>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        roundModel.AddBloonGroup("CeramicFortified", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicCeramicF>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
@@ -299,39 +301,39 @@ public class ClassicTowers : BloonsTD6Mod
                     //delay += BloonInterval(curLevel) * bloonCount;
                     if (curLevel < 60)
                     {
-                        roundModel.AddBloonGroup("Moab", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicMoab>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     else
                     {
-                        if (curLevel >= 90 && curLevel % 10 == 0 || curLevel >= 93 && curLevel % 2 == 1)
+                        //if (curLevel >= 90 && curLevel % 10 == 0 || curLevel >= 93 && curLevel % 2 == 1)
                         // round 90, every 10th round after round 90, round 93, & every odd round after round 93
+                        //{
+                        //roundModel.AddBloonGroup("Ddt", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        //delay += BloonInterval(curLevel) * bloonCount;
+                        //}
+                        //else
                         {
-                            roundModel.AddBloonGroup("Ddt", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
-                            delay += BloonInterval(curLevel) * bloonCount;
-                        }
-                        else
-                        {
-                            roundModel.AddBloonGroup("MoabFortified", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                            roundModel.AddBloonGroup(BloonID<ClassicMoab>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                             delay += BloonInterval(curLevel) * bloonCount;
                         }
                     }
                     return delay;
                 case 11: // DDTs\Fortified MOABs
-                    
+
                     roundModel.AddBloonGroup("Ddt", bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                     delay += BloonInterval(curLevel) * bloonCount;
                     return delay;
-                    
+
                 default:
-                    ModHelper.Warning<ClassicTowers>("Round " + curLevel + ": Specified bloon rank out of bounds, using pink bloons!");
+                    ModHelper.Warning<ClassicRounds>("Round " + curLevel + ": Specified bloon rank out of bounds, using pink bloons!");
                     roundModel.AddBloonGroup("Pink", bloonCount, delay, delay + BloonInterval(curLevel));
                     delay += BloonInterval(curLevel) * bloonCount;
                     return delay;
             }
         }
 
-    public override void ModifyRoundModels(RoundModel roundModel, int round)
+        public override void ModifyRoundModels(RoundModel roundModel, int round)
         {
             float delay = 0;
             switch (round)
@@ -498,7 +500,7 @@ public class ClassicTowers : BloonsTD6Mod
                     delay = 0;
                     delay = ABSTL(19, 28, 5, roundModel, delay);
                     ABSTL(16, 28, 6, roundModel, delay);
-                    break;  
+                    break;
                 case 28:
                     delay = 0;
                     delay = ABSTL(6, 29, 7, roundModel, delay);
@@ -536,7 +538,7 @@ public class ClassicTowers : BloonsTD6Mod
                     delay = 0;
                     ABSTL(12, 35, 8, roundModel, delay);
                     break;
-                case 35: 
+                case 35:
                     delay = 0;
                     delay = ABSTL(11, 36, 5, roundModel, delay);
                     delay = ABSTL(12, 36, 4, roundModel, delay);
@@ -649,11 +651,11 @@ public class ClassicTowers : BloonsTD6Mod
                     if (!(round >= 50))
 
                     {
-                        ModHelper.Warning<ClassicTowers>("Round " + round+1 + ": Missing round data, sending some browns");
+                        ModHelper.Warning<ClassicRounds>("Round " + round + 1 + ": Missing round data, sending some browns");
                         ABSTL(6, round, 9, roundModel, delay);
                         break;
                     }
-                    else 
+                    else
                     {
                         var rand = new Random();
 
@@ -718,9 +720,8 @@ public class ClassicTowers : BloonsTD6Mod
                         }
                         break;
 
+                    }
             }
         }
     }
 }
-    }
-
