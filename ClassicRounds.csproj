@@ -11,8 +11,4 @@
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />
-
-    <ItemGroup>
-      <Compile Remove="bloons\CamoOrange.cs" />
-    </ItemGroup>
 </Project>
