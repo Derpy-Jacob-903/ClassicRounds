@@ -9,7 +9,9 @@ using UnityEngine.UIElements;
 using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace ClassicRounds.Bloons;
-    public abstract class Olive : ModBloon //Pre BTD4 Black
+
+#pragma warning disable 1591
+public abstract class Olive : ModBloon //BTD4 Camo bloon without the Camo
 {
     public override string BaseBloon => BloonType.Purple;
     public override SpriteReference IconReference => (SpriteReference)VanillaSprites.Green;

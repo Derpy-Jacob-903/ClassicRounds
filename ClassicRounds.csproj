@@ -1,13 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>ClassicTowers</RootNamespace>
+        <RootNamespace>ClassicRounds</RootNamespace>
         <Configurations>Debug;Release</Configurations>
         <Nullable>enable</Nullable>
-        <AssemblyName>ClassicTowers</AssemblyName>
+        <AssemblyName>ClassicRounds</AssemblyName>
         <LangVersion>latest</LangVersion>
         <Optimize>False</Optimize>
         <DebugType>embedded</DebugType>
+        <BaseOutputPath>C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods</BaseOutputPath>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />

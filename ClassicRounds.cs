@@ -27,13 +27,18 @@ using ClassicRounds.Bloons;
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace ClassicRounds;
 
+#pragma warning disable 1591
 public class ClassicRounds : BloonsTD6Mod
 {
     public override void OnApplicationStart()
     {
         ModHelper.Msg<ClassicRounds>("ClassicRounds loaded!");
     }
-
+    /// <summary>
+    /// Outputs a delay based the given round.
+    /// </summary>
+    /// <param name="curLevel"></param>
+    /// <returns></returns>
     static float BloonInterval(int curLevel)
     {
         float bloonInterval = 20 - curLevel;
@@ -216,6 +221,16 @@ public class ClassicRounds : BloonsTD6Mod
         private int _loc4_;
         private int _loc5_;
         public string[] levelHints = new string[50];
+        /// <summary>
+        /// Adds a BloonGroup to a RoundModel using variables like BTD3, then returns a delay
+        /// Bloonranks are Red, Blue, Green, Yellow, Black, White, Lead, Rainbow, Ceramic, MOAB.
+        /// </summary>
+        /// <param name="bloonCount"></param>
+        /// <param name="curLevel"></param>
+        /// <param name="bloonRank"></param>
+        /// <param name="roundModel"></param>
+        /// <param name="delay"></param>
+        /// <returns></returns>
         static float ABSTL(int bloonCount, int curLevel, int bloonRank, RoundModel roundModel, float delay)
         {
             switch (bloonRank)
