@@ -14,7 +14,7 @@ namespace ClassicRounds.Bloons;
 public abstract class Olive : ModBloon //BTD4 Camo bloon without the Camo
 {
     public override string BaseBloon => BloonType.Purple;
-    public override SpriteReference IconReference => (SpriteReference)VanillaSprites.Green;
+    public override string Icon => "Oliv33";
     //public override bool Camo => true;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
