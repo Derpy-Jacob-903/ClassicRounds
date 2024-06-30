@@ -271,7 +271,7 @@ public class ClassicRounds : BloonsTD6Mod
                     }
                     else
                     {
-                        roundModel.AddBloonGroup(BloonID<ClassicIce>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
+                        roundModel.AddBloonGroup(BloonID<ClassicWhite>(), bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
                         delay += BloonInterval(curLevel) * bloonCount;
                     }
                     return delay;
