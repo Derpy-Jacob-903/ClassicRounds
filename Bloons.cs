@@ -8,13 +8,14 @@ using System;
 using UnityEngine.UIElements;
 using Il2CppNinjaKiwi.Common.ResourceUtils;
 
-namespace ClassicRounds.Bloons;
+namespace ClassicRounds.bloons;
 
 #pragma warning disable 1591
 public abstract class Olive : ModBloon //BTD4 Camo bloon without the Camo
 {
     public override string BaseBloon => BloonType.Purple;
     public override string Icon => "Oliv33";
+    protected override int Order => 3;
     //public override bool Camo => true;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
@@ -28,6 +29,7 @@ public abstract class Olive : ModBloon //BTD4 Camo bloon without the Camo
 public abstract class ClassicBlack : ModBloon //Pre BTD4 Black, has Yellow children
 {
     public override string BaseBloon => BloonType.Black;
+    protected override int Order => 3;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.bloonProperties = (Il2Cpp.BloonProperties)10;
@@ -39,6 +41,7 @@ public abstract class ClassicBlack : ModBloon //Pre BTD4 Black, has Yellow child
 public abstract class ClassicWhite : ModBloon //Pre BTD4 White, has Yellow children
 {
     public override string BaseBloon => BloonType.White;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
@@ -49,6 +52,7 @@ public abstract class ClassicWhite : ModBloon //Pre BTD4 White, has Yellow child
 public abstract class ClassicLead : ModBloon
 {
     public override string BaseBloon => BloonType.Lead;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
@@ -60,6 +64,7 @@ public abstract class ClassicLead : ModBloon
 public abstract class ClassicRainbow : ModBloon //Pre BTD4 Black, has Black and White children
 {
     public override string BaseBloon => BloonType.Rainbow;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
@@ -67,14 +72,13 @@ public abstract class ClassicRainbow : ModBloon //Pre BTD4 Black, has Black and 
         bloonModel.AddToChildren(BloonID<ClassicWhite>());
         bloonModel.AddToChildren(BloonID<ClassicBlack>());
         bloonModel.AddToChildren(BloonID<ClassicWhite>());
-        bloonModel.layerNumber--;
-        bloonModel.layerNumber--;
     }
 }
 
 public abstract class ClassicCeramic : ModBloon ////BTD3 Ceramic, has 9 health And white properties
 {
     public override string BaseBloon => BloonType.Ceramic;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.bloonProperties = Il2Cpp.BloonProperties.White;
@@ -87,6 +91,7 @@ public abstract class ClassicCeramic : ModBloon ////BTD3 Ceramic, has 9 health A
 public abstract class ClassicCeramicF : ModBloon<ClassicCeramic>
 {
     public override bool Fortified => true;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.maxHealth = 32;
@@ -95,6 +100,7 @@ public abstract class ClassicCeramicF : ModBloon<ClassicCeramic>
 public abstract class ClassicMoab : ModBloon
 {
     public override string BaseBloon => BloonType.Moab;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();
@@ -106,6 +112,7 @@ public abstract class ClassicMoab : ModBloon
 public abstract class ClassicMoabf : ModBloon
 {
     public override string BaseBloon => BloonType.MoabFortified;
+    protected override int Order => 2;
     public override void ModifyBaseBloonModel(BloonModel bloonModel)
     {
         bloonModel.RemoveAllChildren();

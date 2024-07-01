@@ -1,4 +1,4 @@
-namespace ClassicTowers;
+namespace ClassicRounds;
 #pragma warning disable 1591
 public static class ModHelperData
 {
