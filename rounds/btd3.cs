@@ -15,24 +15,33 @@ using UnityEngine;
 using Il2CppSystem.Collections.Generic;
 //using ClassicTowers.Bloons;
 using Il2CppAssets.Scripts.Unity.Achievements.List;
+using BTD_Mod_Helper.Api.Scenarios;
+using Il2CppAssets.Scripts.Models.Difficulty;
+using Il2CppAssets.Scripts.Models.Towers.Mods;
+using BTD_Mod_Helper.Api;
+using Il2CppAssets.Scripts.Unity;
 
 namespace ClassicTowers.B3;
 public abstract class BTD3 : ModRoundSet
 {
     //public static readonly Dictionary<string, BTD3> Cache = new();
     //public static readonly string "BTD3";
+    //public new int Order => 1;
+    public override string Name => "BTD3";
     public override string BaseRoundSet => RoundSetType.Default;
     public override string DisplayName => "BTD3";
     public override string Icon => VanillaSprites.RegrowBloonIcon;
     public override bool AddToOverrideMenu => true;
-    public override int DefinedRounds => 60;
+    public override int DefinedRounds => 15;
 
     //public override SpriteReference IconReference => GetSpriteReferenceOrDefault("3f16ba2fac3822444818744a17789392");
     public override void ModifyRoundModels(RoundModel roundModel, int round)
     {
+
         roundModel.groups.Clear();
-        //string[] BloonSring = { "Red", "Blue", "Green", "Yellow", "ClassicBlack", "ClassicWhite", "ClassicLead", "ClassicRainbow", "ClassicCeramic", "ClassicMoab", "Bfb", "Zomg", "Bad" };
-        string[] BloonSring = { "Red", "Blue", "Green", "Yellow", "Black", "White", "Lead", "Rainbow", "Ceramic", "Moab", "Bfb", "Zomg", "Bad" };
+        var balls = Game.instance.model.bloons;
+        string[] BloonSring = { "Red", "Blue", "Green", "Yellow", ClassicBlack.id, "ClassicWhite", "ClassicLead", "ClassicRainbow", "ClassicCeramic", "ClassicMoab", "Bfb", "Zomg", "Bad" };
+        //ModBloon[] BloonSring = { "Red", "Blue", "Green", "Yellow", "Black", "White", "Lead", "Rainbow", "Ceramic", "Moab", "Bfb", "Zomg", "Bad" };
         //ModBloon[] ModBloonSring = { ClassicBlack, ClassicWhite, ClassicLead, ClassicRainbow, ClassicCeramic, ClassicMoab };
         //if (round > 80)
         //{
@@ -267,11 +276,17 @@ public abstract class BTD3 : ModRoundSet
                 _loc3_++;
             }
             //_loc1_++;
+            return;
         }
         RoundModel ABSTL(int param1, int param2, int param3)
         {
             if (round == param2)
             {
+                decimal bloonInterval = 20 - round;
+                if (bloonInterval < 7)
+                {
+                    bloonInterval = System.Math.Ceiling(7.0 - round / 20.0);
+                }
                 _locB_ += param1 * 72f;
                 //if (BloonSring[param3 - 1].Contains("Classic"))
                 //{
@@ -288,6 +303,79 @@ public abstract class BTD3 : ModRoundSet
             {
                 return roundModel;
             }
+        }
+        //fun BuildLevelHints() : 
+      {
+            var levelHints = new string[];
+            levelHints[0] = "";
+            levelHints[1] = "Pop, pop, pop. Too easy.";
+            levelHints[2] = "";
+            levelHints[3] = "";
+            levelHints[4] = "You can unlock all 8 tracks by passing tracks 1 to 4 in easy mode.";
+            levelHints[5] = "";
+            levelHints[6] = "50 blues heading down next.";
+            levelHints[7] = "The Pop Count under the tower name is how many bloons that thing has popped.";
+            levelHints[8] = "";
+            levelHints[9] = "Road spikes are good for getting those bloons that slip through your defenses.";
+            levelHints[10] = "To recap, yellows spawn, greens, that spawn blues, that spawn reds. Yellows move very fast.";
+            levelHints[11] = "Rainbow bloons are fast and mean, and have 2 blacks and 2 whites in them.";
+            levelHints[12] = "";
+            levelHints[13] = "The permafrost and snap freeze upgrades for Ice Towers are powerful, you should try them.";
+            levelHints[14] = "Try not to rely on road spikes too much, they don\'t earn as much as they cost.";
+            levelHints[15] = "Strategies that work well on some tracks may not work well on others.";
+            levelHints[16] = "You can play any of the tracks on Easy, Medium, or Hard difficulties. How cool is that?";
+            levelHints[17] = "";
+            levelHints[18] = "Red Hot Rangs allows boomerangs to pop lead bloons.";
+            levelHints[19] = "Lead Bloons move slowly, but they are immune to sharp objects. You need to use bombs or similar.";
+            levelHints[20] = "";
+            levelHints[21] = "Monkey Glue is good on levels with multiple paths - you can split the oncoming streams.";
+            levelHints[22] = "Next level will be a doozy.";
+            levelHints[23] = "";
+            levelHints[24] = "Monkey Village do not attack, they just increase the range of all stuff in their radius.";
+            levelHints[25] = "";
+            levelHints[26] = "Some tracks are hard on easy, and others are easy on hard. Ain\'t life funny.";
+            levelHints[27] = "In BTD6, every tower type has 15 upgrades, split into 3 upgrade paths.";
+            levelHints[28] = "";
+            levelHints[29] = "Black bloons are immune to bombs, white ones are immune to freezing.";
+            levelHints[30] = "Did you know the bomb missile upgrade also gives a slight fire rate increase?";
+            levelHints[31] = "";
+            levelHints[32] = "60 black bloons followed by 3 ceramics coming up.";
+            levelHints[33] = "Enjoying the ceramic bloons? They\'re ceramic, so they take several hits to pop. They have rainbows in them too :)";
+            levelHints[34] = "";
+            levelHints[35] = "";
+            levelHints[36] = "Beware the MOAB - its coming next level.";
+            levelHints[37] = "MOAB stands for Massive Ornary Air Blimp, not Mother Of All Bloons. Either way, it brings pain.";
+            levelHints[38] = "";
+            levelHints[39] = "";
+            levelHints[40] = "If you manage to beat level 50, you can opt to play on in \'free play\' mode until you run out of lives.";
+            levelHints[41] = "Need a cash injection? Heres 100 yellows - right after 9 browns. Sorry, it is level 42 after all.";
+            levelHints[42] = "";
+            levelHints[43] = "If a MOAB escapes, it\'s game over. Yes, that sucker will eat all your lives.";
+            levelHints[44] = "Rainbows, browns, then 100 straight whites.";
+            levelHints[45] = "";
+            levelHints[46] = "Super monkey plasma shoots even faster than laser vision.";
+            levelHints[47] = "";
+            levelHints[48] = "Nicely done. Getting difficult yet?";
+            levelHints[49] = "Here comes the final level. It\'s hard. Don\'t forget if you win you can play on in free play mode.";
+        }
+    }
+    public class BTD3Mode : ModGameMode
+    {
+        public override string Difficulty => DifficultyType.Medium;
+
+
+        public override string BaseGameMode => GameModeType.None;
+
+        public override string DisplayName => "BTD3";
+
+        public override string Icon => VanillaSprites.RegrowBloonIcon;
+
+        public override void ModifyBaseGameModeModel(ModModel gameModeModel)
+        {
+            //gameModeModel.UseRoundSet(ModContent.GetInstance<BTD3>().Id);
+            gameModeModel.UseRoundSet("BTD3");
+            //gameModeModel.UseRoundSet<BTD3>(BTD3);
+            //gameModeModel.UseRoundSet(RoundSetId<BTD3>());
         }
     }
 }
