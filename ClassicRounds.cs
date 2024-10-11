@@ -402,20 +402,17 @@ static class IsUpgradePathClosedPatch
 
             string bid = tower.towerModel.baseId;
             string gamemode = InGame.instance.GetGameModel().gameMode;
-            if (!gamemode.Contains("BTD")  ) { return; }
+            if (!gamemode.Contains("BTD")) { return; }
             else
             {
                 __result = false;
-                if (bid == "SuperMonkey" || bid == "SpikeFactory" && path == 2) { __result = true;}
-                if (gamemode.Contains("BTD3") && bid == "MonkeyVillage" && path == 1) { __result = true; }
-                if (gamemode.Contains("BTD3") && (bid == "NinjaMonkey" || bid == "MonkeyAce" || bid == "HeliPilot" || bid == "Druid") && path == 1 && tower.GetUpgrade(path).tier >= 1) { __result = true; }
-                else { if (gamemode.Contains("BTD3") && tower.GetUpgrade(path).tier >= 2) { __result = true; } }
-                if (gamemode.Contains("BTD4") && bid == "SuperMonkey" && path == 0 && tower.GetUpgrade(path).tier >= 4 || path == 1 && tower.GetUpgrade(path).tier >= 3) { __result = true; }
-                else
-                {
-                    if (gamemode.Contains("BTD4") && tower.GetUpgrade(path).tier >= 3) { __result = true; }
-                    if (gamemode.Contains("BTD5") && tower.GetUpgrade(path).tier >= 4) { __result = true; }
-                }
+                if ((bid == "SuperMonkey" || bid == "SpikeFactory") && path == 2) { __result = true; } //No bottom path Super or Spike Factory
+                if (gamemode.Contains("BTD3") && bid == "MonkeyVillage"  && path == 1) { __result = true; } //See summary
+                if (gamemode.Contains("BTD3") && (bid == "MonkeyAce" || bid == "NinjaMonkey" || bid == "HeliPilot" || bid == "Druid") && path == 1 && tower.GetUpgrade(path).tier >= 1) { __result = true; } //ditto
+                if (gamemode.Contains("BTD3") && tower.GetUpgrade(path).tier >= 2) { __result = true; } //No tier 3s and up
+                if (gamemode.Contains("BTD4") && bid == "SuperMonkey" && path == 0 && tower.GetUpgrade(path).tier == 4) { return; } //(not always no) BTD4 Sun Temple
+                if (gamemode.Contains("BTD4") && tower.GetUpgrade(path).tier >= 3) { __result = true; } //No tier 4s and up
+                if (gamemode.Contains("BTD5") && tower.GetUpgrade(path).tier >= 4) { __result = true; } //No tier 5s and up
             }
             return;
         }
