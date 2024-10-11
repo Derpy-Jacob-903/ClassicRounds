@@ -2,8 +2,8 @@ namespace ClassicRounds;
 #pragma warning disable 1591
 public static class ModHelperData
 {
-    public const string WorksOnVersion = "???";
-    public const string Version = "0.1.0";
+    public const string WorksOnVersion = "43.0";
+    public const string Version = "0.2.0";
     public const string Name = "ClassicRounds";
 
     public const string Description = "";
