@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>ClassicRounds</RootNamespace>
@@ -13,4 +13,12 @@
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />
+
+    <ItemGroup>
+        <Compile Remove="bloons\btx\**" />
+        <Compile Remove="bloons\New folder\**" />
+        <Compile Remove="bloons-Old\**" />
+        <EmbeddedResource Remove="bloons-Old\**" />
+        <EmbeddedResource Remove="bloons\New folder\**" />
+    </ItemGroup>
 </Project>
