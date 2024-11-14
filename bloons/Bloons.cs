@@ -3,10 +3,6 @@ using BTD_Mod_Helper.Api.Bloons;
 using Il2CppAssets.Scripts.Models.Bloons;
 using BTD_Mod_Helper.Api.Enums;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
-using Il2CppSystem;
-using System;
-using UnityEngine.UIElements;
-using Il2CppNinjaKiwi.Common.ResourceUtils;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Api;
 using Il2CppAssets.Scripts.Unity.Display;
@@ -19,7 +15,6 @@ namespace ClassicRounds.Bloons
     public class Olive : ModBloon //BTD4 Camo bloon without the Camo
     {
         public override string BaseBloon => BloonType.White;
-        public override string Icon => "Olive";
         protected override int Order => 2;
         //public override bool Camo => true;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
@@ -72,8 +67,8 @@ namespace ClassicRounds.Bloons
         //public override bool Camo => true;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
-            bloonModel.speed = 27.75f; //lead * (white/black)
-            bloonModel.Speed = 27.75f;
+            bloonModel.speed = 55.0f; //lead * (white/black)
+            bloonModel.Speed = 55.0f;
             //bloonModel.speed = 45.0f; //purple = 75 //lead = 25
             //bloonModel.Speed = 45.0f; //zebra = 45 //cermic 62.5
             bloonModel.maxHealth = 5;
@@ -313,6 +308,7 @@ namespace ClassicRounds.Bloons
     public class ClassicCeramic : ModBloon ////BTD3 Ceramic, has 9 health And white properties
     {
         public override string BaseBloon => BloonType.Ceramic;
+        public override string Icon => "ClassicBrown";
         public override IEnumerable<string> DamageStates => ["ClassicBrown", "ClassicBrown-1", "ClassicBrown-2", "ClassicBrown-3", "ClassicBrown-4", "ClassicBrown-5", "ClassicBrown-6", "ClassicBrown-7"];
         protected override int Order => 2;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
@@ -330,6 +326,7 @@ namespace ClassicRounds.Bloons
     public class ClassicCeramicCamo : ModBloon<ClassicCeramic>
     {
         public override bool Camo => true;
+        public override string Icon => "ClassicBrownCamo";
         public override IEnumerable<string> DamageStates => ["ClassicBrownCamo", "ClassicBrownCamo-1", "ClassicBrownCamo-2", "ClassicBrownCamo-3", "ClassicBrownCamo-4", "ClassicBrownCamo-5", "ClassicBrownCamo-6", "ClassicBrownCamo-7"];
 
         public override void ModifyBaseBloonModel(BloonModel bloonModel)

@@ -13,6 +13,12 @@
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />
+	<!--
+	<ItemGroup>
+		<Reference Include="PowersInShop">
+			<HintPath>$(BloonsTD6)\Mods\PowersInShop.dll</HintPath>
+		</Reference>
+	</ItemGroup> -->
 
     <ItemGroup>
         <Compile Remove="bloons\btx\**" />
@@ -20,5 +26,26 @@
         <Compile Remove="bloons-Old\**" />
         <EmbeddedResource Remove="bloons-Old\**" />
         <EmbeddedResource Remove="bloons\New folder\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+		<!--Remove this later (post 0.3.0)
+      <Compile Remove="rounds\BTD5.cs" />-->
+      <Compile Remove="rounds\BTD5.cs" />
+      <Compile Remove="towers\ClassicRoadSpikes.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="rounds\AdventureTimeRounds.json" />
+      <None Remove="rounds\DefaultBTD5rounds.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="rounds\AdventureTimeRounds.json" />
+      <EmbeddedResource Include="rounds\DefaultBTD5rounds.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="towers\" />
     </ItemGroup>
 </Project>

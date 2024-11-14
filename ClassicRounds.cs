@@ -1,430 +1,81 @@
 using MelonLoader;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Extensions;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Scenarios;
-using Il2CppAssets.Scripts.Models.Difficulty;
-using Il2CppAssets.Scripts.Models;
-using Il2CppAssets.Scripts.Models.Gameplay.Mods;
 using ClassicRounds;
-using BTD_Mod_Helper.Api.Towers;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using HarmonyLib;
-using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Simulation.Freeplay;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2Cpp;
-using Il2CppAssets.Scripts.Data.Gameplay.Mods;
-using Il2CppAssets.Scripts.Simulation.Bloons;
-using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
 using System.Linq;
-using UnityEngine.InputSystem.Utilities;
-using Il2CppAssets.Scripts.Models.TowerSets;
-using System.IO;
-using Il2CppNinjaKiwi.Common.ResourceUtils;
-using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Powers;
+using BTD_Mod_Helper.Api.Enums;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.TowerFilters;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers;
+using UnityEngine.InputSystem.Utilities;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using BTD_Mod_Helper.Api.Display;
+using Il2CppSystem.Runtime.InteropServices;
 
 [assembly: MelonInfo(typeof(ClassicRounds.ClassicRoundsMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace ClassicRounds;
 #pragma warning disable 1591
-
-
-
-
-
-
 public class ClassicRoundsMod : BloonsTD6Mod
 {
     public int[] cock = [1, 2, 3];
     public override void OnApplicationStart()
     {
         ModHelper.Msg<ClassicRoundsMod>("ClassicRounds loaded!");
-
     }
-    public static readonly ModSettingBool ReducedCashinClassicModes = false;
-    public static readonly ModSettingBool UseClassicBloonsinClassicModes = true;
+    public static readonly ModSettingBool ReducedCashinClassicModes = new(false) { description = "Reduce income in BTD3 GameModes by 20%, approximately negating the extra income of Pink and Zebra children from Cermamics." };
+    public static readonly ModSettingBool UseClassicBloonsinClassicModes = new(true) { description = "Use Bloons that lack Pink and Zebra children in BTD3 RoundSets." };
+    public static readonly ModSettingBool DisableSuperCermaicsinClassicModes = new(true) { description = "Disables Super Cermaics the BTD3 and BTD4 GameModes\nLikely increases lag." };
+    public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(true) { description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
 
-    public static readonly ModSettingBool UseClassicBloonDisplays = new(true)
-    {
-        description = ""
-    };
+    public static readonly ModSettingInt GeneratedBTD3FreeplayRounds = new(100) { description = "How many rounds to generate for the BTD3 Standard RoundSet past round 50.\nValues above 100 (150 total) are untested." };
+    public static readonly ModSettingInt GeneratedBTD4FreeplayRounds = new(180) { description = "How many rounds to generate for the BTD4 Standard RoundSet past round 75.\nValues above 180 (255 total) are untested." };
+    public static readonly ModSettingInt GeneratedBTD5FreeplayRounds = new(314) { description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Standard RoundSet past round 85." };
+
+    public static readonly ModSettingBool DisableBTD4ApopalypseRounds = new(true) { description= "Disables the BTD4 Apopalypse GameMode" };
+    public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(255) { description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?" };
 }
 
-
-
-
-public class BTD3Easy : ModGameMode
+public class MonkeyGlue : ModDisplay2D
 {
-    protected override int Order => 3;
-    public override string Difficulty => DifficultyType.Easy;
+    protected override string TextureName => "MonkeyGlue";
+}
 
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD3 Standard";
-
-    public override string Icon => "";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
+[HarmonyPatch(typeof(ProgressiveDifficultyManager), "ChangeCeramicsAndChildren")]
+static class ChangeCeramicsAndChildrenPatch
+{
+    [HarmonyPrefix]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "This is a Harmony patch. It is used to skip ProgressiveDifficultyManager.ChangeCeramicsAndChildren")]
+    private static bool Prefix()
     {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetIncomeEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingHealth(100);
-        gameModeModel.SetMaxHealth(100);
-        gameModeModel.SetStartingRound(1);
-        gameModeModel.SetEndingRound(50);
-        gameModeModel.AddMutator(new MonkeyMoneyModModel("MonkeyMoneyModModel_", 0, 1.25f));
-        if (ClassicRoundsMod.ReducedCashinClassicModes)
+        var gameMode = InGame.instance.GetGameModel().gameMode;
+
+        if (gameMode.Contains("ClassicRounds-")
+            && !gameMode.Contains('5') && !gameMode.Contains("BTDB") && !gameMode.Contains("BATTD")
+            && ClassicRoundsMod.DisableSuperCermaicsinClassicModes)
         {
-            gameModeModel.SetAllCashMultiplier(0.8f);
+            ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren skipped successfully.");
+            return false; // Skip the original method
         }
-        gameModeModel.UseRoundSet<EasyBtd3Rounds>();
-        // No Farms
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarm"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarmerTower-Banana Farmer"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-BananaFarmer"));
-        // New to BTD 4/5/6
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "GlueGunner"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Druid"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpikeFactory"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "EngineerMonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-                                                                                              // Note: Allowing Pontoons for watery maps
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-PortableLake")); // No water towers
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-TechBot")); //No ablitys
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-CamoTrap")); //no camos
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Military));
-    }
-}
-public class BTD3Medium : ModGameMode
-{
-    protected override int Order => 3;
-    public override string Difficulty => DifficultyType.Medium;
-
-            public override string BaseGameMode => GameModeType.None;
-
-            public override string DisplayName => "BTD3 Standard";
-
-            public override string Icon => "";
-
-            public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-            {
-                //BuildLevelHints(levelHints)
-                gameModeModel.SetMkEnabled(false);
-                gameModeModel.SetIncomeEnabled(false);
-                gameModeModel.SetContinuesEnabled(false);
-                gameModeModel.SetStartingHealth(75);
-                gameModeModel.SetMaxHealth(75);
-                gameModeModel.SetStartingRound(1);
-                gameModeModel.SetEndingRound(50);
-        gameModeModel.AddMutator(new MonkeyMoneyModModel("MonkeyMoneyModModel_", 0, 5/6));
-        if (ClassicRoundsMod.ReducedCashinClassicModes){gameModeModel.SetAllCashMultiplier(0.8f);}
-        gameModeModel.UseRoundSet<MidBtd3Rounds>();
-        // No Farms
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarm"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarmerTower-Banana Farmer"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-BananaFarmer"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-BananaFarmer")); // No Buffs
-                                                                                                             // New to BTD 4/5/6, 
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "GlueGunner"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Druid"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpikeFactory"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "EngineerMonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi"));
-        // Powers/Special Agents
-        //Note: Allowing Pontoons for watery maps (BTD3 has no water)
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-PortableLake")); // No water towers
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-PortableLake"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-MeerkatSpy")); // No camos
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-CamoTrap"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-AngrySquirrel"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-TribalTurtle"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-TechBot")); //No ablitys
-
-
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Military));
-    }
-}
-public class BTD3Hard : ModGameMode
-{
-    protected override int Order => 3;
-    public override string Difficulty => DifficultyType.Hard;
-
-            public override string BaseGameMode => GameModeType.None;
-
-            public override string DisplayName => "BTD3 Standard";
-
-            public override string Icon => "";
-
-            public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-            {
-                //BuildLevelHints(levelHints)
-                gameModeModel.SetMkEnabled(false);
-                gameModeModel.SetIncomeEnabled(false);
-                gameModeModel.SetContinuesEnabled(false);
-                gameModeModel.SetStartingHealth(50);
-                gameModeModel.SetMaxHealth(50);
-                gameModeModel.SetStartingRound(1);
-                gameModeModel.SetEndingRound(50);
-            gameModeModel.AddMutator(new MonkeyMoneyModModel("MonkeyMoneyModModel_", 0, 5 / 8));
-        if (ClassicRoundsMod.ReducedCashinClassicModes){gameModeModel.SetAllCashMultiplier(0.8f);}
-        gameModeModel.UseRoundSet<HardBtd3Rounds>();
-        // No Farms
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarm"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BananaFarmerTower-Banana Farmer"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-BananaFarmer"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-BananaFarmer")); // No Buffs
-                                                                                                             // New to BTD 4/5/6, 
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "GlueGunner"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Druid"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpikeFactory"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "EngineerMonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi"));
-        // Powers/Special Agents
-        //Note: Allowing Pontoons for watery maps (BTD3 has no water)
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-PortableLake")); // No water towers
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-PortableLake"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-MeerkatSpy")); // No camos
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-CamoTrap"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-AngrySquirrel"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "SpecialAgents-TribalTurtle"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-TechBot")); //No ablitys
-
-
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Military));
-    }
-}
-    
-
-public class BTD4Easy : ModGameMode
-{
-    protected override int Order => 4;
-    public override string Difficulty => DifficultyType.Easy;
-
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD4 Standard";
-
-    public override string Icon => "1132_bloonstd4e_fla.btn_easy_223";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-    {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingHealth(200);
-        gameModeModel.SetMaxHealth(200);
-        gameModeModel.SetStartingRound(1);
-        gameModeModel.SetEndingRound(50);
-        gameModeModel.UseRoundSet<EasyBtd4Rounds>();
-        // New to BTD 5/6
-        gameModeModel.AddMutator(new MonkeyMoneyModModel("MonkeyMoneyModModel_", 0, 1.25f));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "HeliPilot"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "MonkeySub"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-                                                                                              // Note: Allowing Pontoons for watery maps
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-    }
-}
-public class BTD4Medium : ModGameMode
-{
-    protected override int Order => 4;
-    public override string Difficulty => DifficultyType.Medium;
-
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD4 Standard";
-
-    public override string Icon => "1142_bloonstd4e_fla.btn_med_226";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-    {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingHealth(150);
-        gameModeModel.SetMaxHealth(150);
-        gameModeModel.SetStartingRound(1);
-        gameModeModel.SetEndingRound(60);
-        gameModeModel.UseRoundSet<MidBtd4Rounds>();
-        // New to BTD 4/5/6
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "HeliPilot"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "MonkeySub"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-                                                                                              // Note: Allowing Pontoons for watery maps
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-    }
-}
-public class BTD4Hard : ModGameMode
-{
-    protected override int Order => 4;
-    public override string Difficulty => DifficultyType.Hard;
-
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD4 Standard";
-
-    public override string Icon => "1151_bloonstd4e_fla.btn_hard_229";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-    {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingHealth(100);
-        gameModeModel.SetMaxHealth(100);
-        gameModeModel.SetStartingRound(1);
-        gameModeModel.SetEndingRound(75);
-        gameModeModel.UseRoundSet<HardBtd4Rounds>();
-        // New to BTD 4/5/6
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "HeliPilot"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "MonkeySub"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-    }
-}
-public class BTD4Deflation : ModGameMode
-{
-    protected override int Order => 5;
-    public override string Difficulty => DifficultyType.Medium;
-
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD4 Deflation";
-
-    public override string Icon => "1186_bloonstd4e_fla.deflationmodebtn_238";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-    {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingCash(50000);
-        gameModeModel.SetStartingHealth(150);
-        gameModeModel.SetMaxHealth(150);
-        gameModeModel.SetStartingRound(21);
-        gameModeModel.SetEndingRound(60);
-        gameModeModel.AddMutator(new DeflationModel("DeflationModel_")); 
-        gameModeModel.SetAllCashMultiplier(0.0f);
-        gameModeModel.UseRoundSet<MidBtd4Rounds>();
-        // New to BTD 4/5/6
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "HeliPilot"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "MonkeySub"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-                                                                                              // Note: Allowing Pontoons for watery maps
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
+        ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren not skipped successfully.");
+        return true; // Continue with the original method
     }
 }
 
-public class BTD4Apopalypse : ModGameMode
-{
-    protected override int Order => 5;
-    public override string Difficulty => DifficultyType.Medium;
 
-    public override string BaseGameMode => GameModeType.None;
-
-    public override string DisplayName => "BTD4 Apopalypse";
-
-    public override string Icon => "1180_bloonstd4e_fla.continuousmodebtn_237";
-
-    public override void ModifyBaseGameModeModel(ModModel gameModeModel)
-    {
-        //BuildLevelHints(levelHints)
-        gameModeModel.SetMkEnabled(false);
-        gameModeModel.SetContinuesEnabled(false);
-        gameModeModel.SetStartingHealth(150);
-        gameModeModel.SetMaxHealth(150);
-        gameModeModel.SetStartingRound(1);
-        gameModeModel.SetEndingRound(60);
-        gameModeModel.AddMutator(new ApopalypseModel("ApopalypseModel_"));
-        gameModeModel.UseRoundSet<Btd4ApopRounds>();
-        // New to BTD 4/5/6
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "HeliPilot"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "MonkeySub"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Eevee-Eevee"));
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi")); //
-                                                                                              // Powers
-                                                                                              // Note: Allowing Pontoons for watery maps
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-EnergisingTotem")); // No Buffs
-        gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "PowersInShop-MoabMine"));
-        gameModeModel.AddMutator(new LockTowerSetModModel("LockTowerModModel_", Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Hero));
-    }
-}
-//[HarmonyPatch(typeof(ProgressiveDifficultyManager), nameof(ProgressiveDifficultyManager.GetSpeedMultiplier))]
-//static class ProgressiveDifficultyManagerPatch
-//{
-//[HarmonyPrefix]
-//private static void Prefix(ProgressiveDifficultyManager __instance, int roundOnScreen, ref bool __result)
-//{
-//if (InGame.instance.GetGameModel().gameMode.Contains("BTD3"))
-//{
-//var i = new __instance.GetSpeedMultiplier(roundOnScreen);
-//__result = i(roundOnScreen + 30);
-//return false;
-//}
-//return true;
-//}
-//}
 
 [HarmonyPatch(typeof(TowerSelectionMenu), nameof(TowerSelectionMenu.IsUpgradePathClosed))]
-static class IsUpgradePathClosedPatch
+static class IsUpgradePathClosedPatch //
 {
     [HarmonyPostfix]
     /// <summary>
@@ -438,9 +89,9 @@ static class IsUpgradePathClosedPatch
         if (__instance.selectedTower == null) { return; }
         if (InGame.instance.bridge.IsSandboxMode()) { return; }
 
-        if (InGame.instance.GetGameModel().gameMode.Contains("BTD3") || InGame.instance.GetGameModel().gameMode.Contains("BTD4") || InGame.instance.GetGameModel().gameMode.Contains("BTD5"))
+        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-") && !InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BADTD"))
         {
-            Tower tower = __instance.selectedTower.tower;
+            Il2CppAssets.Scripts.Simulation.Towers.Tower tower = __instance.selectedTower.tower;
             if (tower.towerModel.IsHero()) { return; }
 
             if (tower.GetUpgrade(path) == null) { return; }
@@ -452,7 +103,7 @@ static class IsUpgradePathClosedPatch
 
             string bid = tower.towerModel.baseId;
             string gamemode = InGame.instance.GetGameModel().gameMode;
-            if (!gamemode.Contains("BTD")) { return; }
+            if (!gamemode.Contains("ClassicRounds-")) { return; }
             else
             {
                 __result = false;
@@ -469,48 +120,322 @@ static class IsUpgradePathClosedPatch
     }
 }
 
-[HarmonyPatch(typeof(Bloon), nameof(Bloon.Damage))]
-internal static class Bloon_Damage //Wizard
+[HarmonyPatch(typeof(InGame), nameof(InGame.StartMatch))]
+internal static class InGame_StartMatch
 {
-    static string[] AddBlackWeakness = [ "Alchemist" ];
 
-    /// <summary>
-    /// Classic Black Bloons
-    /// </summary>
-    static string[] AddBlackWeaknessIfPurpleWeak = ["WizardMonkey", "AncientMonkey", "AncientMonkey", "Phoenix", "PermaPhoenix", "LordPhoenix"]; //
-
-    [HarmonyPrefix]
-    private static void Prefix(Bloon __instance, float totalAmount, Projectile projectile, bool distributeToChildren, bool overrideDistributeBlocker, bool createEffect, Tower tower, BloonProperties immuneBloonProperties = BloonProperties.None, bool canDestroyProjectile = true, bool ignoreNonTargetable = false, bool blockSpawnChildren = false, bool ignoreInvunerable = false)
+    private static bool IsClassic(string name)
     {
-        if (__instance != null && tower != null)
-        {
-            bool ShouldAddBlackWeakness = false;
-            //InGame game = InGame.instance;
-            string bid = tower.towerModel.baseId;
+        return (name.Contains('1') || name.Contains('2') || name.Contains('3'));
+    }
 
-            foreach (string i in AddBlackWeakness) 
+    [HarmonyPostfix]
+    private static void Postfix(InGame __instance)
+    {
+        var name = __instance.GetGameModel().gameMode;
+
+        if (name.Contains("BTD6Rogue-"))
+        {
+            foreach (var b in __instance.GetAllBloonToSim())
             {
-                if (bid.Contains(i)) { ShouldAddBlackWeakness = true; }
-            }
-            if (immuneBloonProperties == BloonProperties.Purple && immuneBloonProperties != BloonProperties.White) //
-            {
-                foreach (string i in AddBlackWeaknessIfPurpleWeak)
+                if (b.Def.baseId.Contains("ClassicRounds-Classic") || (b.Def.bloonProperties & BloonProperties.Black) != 0)
                 {
-                    if (bid.Contains(i) || tower.towerModel.towerSet == TowerSet.Hero) { ShouldAddBlackWeakness = true; }
+                    b.Def.bloonProperties |= BloonProperties.Purple;
+                }
+            } 
+        }
+        if (name.Contains("BTD") && name.Contains("ClassicRounds-"))
+        {
+            float Dart = 200; //used for cost nerfs
+            if (name.Contains("Apopalypse"))
+            {
+                __instance.GetGameModel().isApopalypse = true;
+            }
+            foreach (var t in __instance.GetGameModel().towers)
+            {
+                if (name.Contains('4')) //Add MOAB-Class glue resistance to Ceramics for BTD4
+                {
+                    foreach (var p in t.GetDescendants<ProjectileModel>().ToList())
+                    {
+                        foreach (var s in t.GetDescendants<SlowModifierForTagModel>().ToList())
+                        {
+                            if (s.tag == "Moabs")
+                            {
+                                SlowModifierForTagModel x = s.Duplicate();
+                                x.tag = "Ceramic";
+                                p.AddBehavior(x);
+                            }
+                        }
+                    }
+                }
+
+                if (t.baseId == "PowersInShop-GlueTrap" && (IsClassic(name) || name.Contains('4')))
+                {
+                    if (IsClassic(name)) { t.cost = Dart * 0.20f; }
+                    else { if (name.Contains('4')) { t.cost = Dart * 0.05f; } }
+                    t.GetDescendant<ProjectileModel>().pierce = 20;
+                }
+
+                if (t.baseId == "PowersInShop-RoadSpikes")
+                {
+                    t.cost = Dart * 0.15f;
+                    var a = t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel;
+                    var b = __instance.GetGameModel().GetTowerFromId("SpikeFactory-100").GetAttackModel().weapons[0].projectile;
+                    a.pierce = 10; 
+                    a.GetDamageModel().immuneBloonProperties = BloonProperties.Lead;
+                    a.SetDisplay(b.display);
+                    if (name.Contains('5')) { t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel.pierce++; }
+                    //if (name.Contains('5')) { t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel.pierce++; }
+                }
+
+                if (t.baseId == "PowersInShop-MoabMine")
+                {
+
+                    t.cost = Dart * 0.10f;
+                    foreach (var a in __instance.GetGameModel().GetTowerFromId("MonkeyAce-020").GetDescendants<AttackAirUnitModel>().ToList())
+                    {
+                        if (a.name.Contains("_PineappleBombs_"))
+                        {
+                            t.portrait = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference(VanillaSprites.ExplodingPineappleUpgradeIcon);
+                            t.icon = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference(VanillaSprites.ExplodingPineappleUpgradeIcon);
+                            t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel = a.weapons[0].projectile;
+                            var v = t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile;
+                            v.GetBehavior<DamageModifierForTagModel>().tag = "Moabs"; v.GetBehavior<DamageModifierForTagModel>().tags[0] = "Moabs";
+                            v.GetBehavior<DamageModifierForTagModel>().damageAddative = 3;
+                        }
+                    }
+                }
+
+                if (t.baseId == "DartMonkey")
+                {
+
+                    foreach (var w in t.GetWeapons())
+                    {
+                        w.projectile.pierce--; //all darts
+                        if (!t.HasUpgrade(0, 1) && !t.HasUpgrade(1, 1) && !t.HasUpgrade(2, 1))
+                        {
+                            Dart = t.cost;
+                        }
+                        if (t.HasUpgrade(0, 2)) { w.projectile.pierce--; } //razor sharp darts
+                        if (t.HasUpgrade(0, 3)) { w.projectile.GetDamageModel().damage--; } //spike-o-pult
+                        if (t.HasUpgrade(0, 4)) { w.projectile.pierce *= 2; } //juggernog
+                        if (t.HasUpgrade(2, 3)) { w.projectile.pierce--; } //crossbow
+                    }
+                }
+                if (t.baseId == "BoomerangMonkey")
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            if (IsClassic(name))
+                            {
+                                w.projectile.pierce -= 2;
+                            }
+                            if (name.Contains('4'))
+                            {
+                                w.projectile.pierce --;
+                            }
+                            if (t.HasUpgrade(2, 2))
+                            {
+                                w.projectile.GetDamageModel().damage--;
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "TackShooter")
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            if (t.HasUpgrade(1, 2) && !t.HasUpgrade(1, 3)) //Super Range Tacks, not Blade Shooter
+                            {
+                                w.projectile.pierce -= 3;
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "IceMonkey")
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            if (!(t.HasUpgrade(0, 2) || t.HasUpgrade(2, 2)))
+                            {
+                                w.projectile.GetDescendant<DamageModel>().damage--;
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "SuperMonkey")
+                {
+                    t.cost = Dart * 20;
+
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            if (t.HasUpgrade(1, 2)) { w.projectile.pierce--; }
+                        }
+                    }
+                }
+                if (t.baseId == "MortarMonkey")
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            w.projectile.GetDescendant<DamageModel>().damage--;
+                            w.projectile.pierce += 15;
+                        }
+                    }
+                }
+                if (t.baseId == "MonkeySub")
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            w.projectile.pierce--;
+                        }
+                    }
+                }
+                if (t.baseId == "Psychomonkey")
+                {
+                    if (t.HasUpgrade(1, 2) && IsClassic(name))
+                    {
+                        var attackModel = t.GetAttackModel();
+                        attackModel.weapons[0].projectile.RemoveBehaviors<WindModel>();
+                    }
+                }
+                if (t.baseId == "WizardMonkey")
+                {
+                    t.cost = Dart * 2;
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            w.projectile.pierce--;
+                            if (a.name.Contains("Fireball") && name.Contains('4')) //Explosive => Normal
+                            {
+                                foreach(var b in a.GetDescendants<DamageModel>().ToList())
+                                {
+                                    b.immuneBloonProperties = BloonProperties.None;
+                                }
+                            }
+                            if (name.Contains('5')) //Energy/Shatter => Plasma/Normal
+                            {
+                                foreach (var b in a.GetDescendants<DamageModel>().ToList())
+                                {
+                                    b.immuneBloonProperties &= ~BloonProperties.Lead;
+                                }
+                            }
+                            if ((a.name.Contains("Fireball") || a.name.Contains("Wall of Fire") || a.name.Contains("Dragon's Breath")) && IsClassic(name)) //Fire => Explosive
+                            {
+                                foreach (var b in a.GetDescendants<DamageModel>().ToList())
+                                {
+                                    b.immuneBloonProperties &= ~BloonProperties.Black;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "NinjaMonkey" && IsClassic(name))
+                {
+                    t.cost = Dart * 2.5f;
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            if (t.HasUpgrade(1, 2) && IsClassic(name) 
+                                && w.projectile is not null 
+                                && w.projectile.GetBehaviors<WindModel>() is not null)
+                            {
+                                a.weapons[0].projectile.RemoveBehaviors<WindModel>();
+                            }
+                        }
+                    }
+                }
+                if ((t.baseId == "Alchemist" || t.baseId == "GlueGunner") && IsClassic(name)) //Acid => Explosive
+                {
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            foreach (var d in w.GetDescendants<DamageModel>().ToList())
+                            {
+                                if (d.immuneBloonProperties == BloonProperties.None) 
+                                {
+                                    d.immuneBloonProperties = BloonProperties.Black;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "Druid")
+                {
+                    if (IsClassic(name) || name.Contains('4') || name.Contains('5') || name.Contains("BTDB"))
+                    {
+                        t.cost = Dart * 5;
+                    }
+                    if (IsClassic(name))
+                    {
+                        foreach (var a in t.GetAttackModels())
+                        {
+                            foreach (var w in a.weapons)
+                            {
+                                if (t.HasUpgrade(1, 1) && w.name.Contains("WeaponModel_Weapon")) //Normal => Shaiter
+                                {
+                                    w.projectile.GetDamageModel().immuneBloonProperties |= BloonProperties.Lead;
+                                    w.projectile.pierce--;
+                                }
+                                if (t.HasUpgrade(1, 1) && w.name.Contains("WeaponModel_Lightning")) //Plasma => Explosive
+                                {
+                                    w.projectile.GetDamageModel().immuneBloonProperties |= BloonProperties.Black;
+                                    w.projectile.GetDamageModel().immuneBloonProperties &= BloonProperties.Purple;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (t.baseId == "Eevee-Eevee")
+                {
+                    t.cost = Dart * 15;
+                }
+                if (t.baseId == "MonkeyMachine-MonkeyMachine" && (IsClassic(name) || name.Contains('4')))
+                {
+                    foreach (var s in t.GetDescendants<FilterInBaseTowerIdModel>().ToList())
+                    {
+                        s.baseIds.AddItem(t.baseId);
+                    }
+
+                    foreach (var a in t.GetAttackModels())
+                    {
+                        foreach (var w in a.weapons)
+                        {
+                            foreach (var d in w.GetDescendants<DamageModel>().ToList())
+                            {
+                                if (w.name.Contains("rocket_attack") && name.Contains('4'))
+                                {
+                                    d.immuneBloonProperties = BloonProperties.Black;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            if (__instance.bloonModel.name.Contains("ClassicBlack") && ShouldAddBlackWeakness)
-            {
-                immuneBloonProperties &= ~BloonProperties.Black;
-            }
-            //foreach (Slow i in projectile.GetProjectileBehaviors<Slow>())
-            //{
-                //if (i.slowModel.Mutator.id.Contains("Stun"))
-                //{
-                    //i.projectile.projectileModel.RemoveBehaviors<SlowModel>();
-                    //i.projectile.projectileModel.AddBehavior<FreezeModel>(mer);
-                //}
-            //}
         }
+        //if (name.Contains('1') || name.Contains('2') || name.Contains('3'))) 
+        //{
+            //var towers = __instance.GetGameModel().towers;
+            //foreach (var t in __instance.GetGameModel().towers)
+            //{
+                
+
+
+            //}
+        //}
     }
 }
