@@ -35,7 +35,7 @@ namespace ClassicRounds.Rounds
             //{
             //bloonInterval = (float)Math.Ceiling((double)(7 - curLevel / 20));
             //};
-            return bloonInterval * 2.2f;
+            return bloonInterval * (60 / 35);
         }
         /// <summary>
         /// Generates a BloonGroup using variables like BTD3 and adds it to a RoundModel, then returns a new delay for the next group.

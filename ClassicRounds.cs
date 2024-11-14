@@ -89,7 +89,7 @@ static class IsUpgradePathClosedPatch //
         if (__instance.selectedTower == null) { return; }
         if (InGame.instance.bridge.IsSandboxMode()) { return; }
 
-        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-") && !InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BADTD"))
+        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-") && (!InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BATTD") || !InGame.instance.GetGameModel().gameMode.Contains("BTDB2")))
         {
             Il2CppAssets.Scripts.Simulation.Towers.Tower tower = __instance.selectedTower.tower;
             if (tower.towerModel.IsHero()) { return; }
@@ -157,7 +157,7 @@ internal static class InGame_StartMatch
                 {
                     foreach (var p in t.GetDescendants<ProjectileModel>().ToList())
                     {
-                        foreach (var s in t.GetDescendants<SlowModifierForTagModel>().ToList())
+                        foreach (var s in p.GetDescendants<SlowModifierForTagModel>().ToList())
                         {
                             if (s.tag == "Moabs")
                             {
@@ -332,7 +332,7 @@ internal static class InGame_StartMatch
                                     b.immuneBloonProperties &= ~BloonProperties.Lead;
                                 }
                             }
-                            if ((a.name.Contains("Fireball") || a.name.Contains("Wall of Fire") || a.name.Contains("Dragon's Breath")) && IsClassic(name)) //Fire => Explosive
+                            if ((a.name.Contains("Wall of Fire") || a.name.Contains("Dragon's Breath")) && IsClassic(name)) //Fire => Explosive
                             {
                                 foreach (var b in a.GetDescendants<DamageModel>().ToList())
                                 {
@@ -402,7 +402,7 @@ internal static class InGame_StartMatch
                 }
                 if (t.baseId == "Eevee-Eevee")
                 {
-                    t.cost = Dart * 15;
+                    t.cost = Dart * 20;
                 }
                 if (t.baseId == "MonkeyMachine-MonkeyMachine" && (IsClassic(name) || name.Contains('4')))
                 {
