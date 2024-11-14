@@ -1,0 +1,2188 @@
+{
+  "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 0
+  },
+  "m_Enabled": 1,
+  "m_Script": {
+    "m_FileID": 0,
+    "m_PathID": -6334260697746468567
+  },
+  "m_Name": "AdventureTimeRounds",
+  "rounds": [
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Reds x 25",
+          "bloon": "Red",
+          "count": 25,
+          "start": 0.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Reds x 30",
+          "bloon": "Red",
+          "count": 30,
+          "start": 0.0,
+          "duration": 25.0
+        },
+        {
+          "groupName": "Grouped Blues x 3",
+          "bloon": "Blue",
+          "count": 3,
+          "start": 27.0,
+          "duration": 1.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Reds x 40",
+          "bloon": "Red",
+          "count": 40,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Spaced Blues x 6",
+          "bloon": "Blue",
+          "count": 6,
+          "start": 22.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Grouped Reds x 36",
+          "bloon": "Red",
+          "count": 36,
+          "start": 30.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Blues x 8",
+          "bloon": "Blue",
+          "count": 8,
+          "start": 0.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Grouped Reds x 32",
+          "bloon": "Red",
+          "count": 32,
+          "start": 8.5,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Grouped Blues x 16",
+          "bloon": "Blue",
+          "count": 16,
+          "start": 22.0,
+          "duration": 8.7
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Reds x 40",
+          "bloon": "Red",
+          "count": 40,
+          "start": 0.0,
+          "duration": 13.0
+        },
+        {
+          "groupName": "Grouped Blues x 25",
+          "bloon": "Blue",
+          "count": 25,
+          "start": 10.5,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Greens x 3",
+          "bloon": "Green",
+          "count": 3,
+          "start": 27.0,
+          "duration": 6.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Greens x 3",
+          "bloon": "Green",
+          "count": 3,
+          "start": 0.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Grouped Reds x 20",
+          "bloon": "Red",
+          "count": 20,
+          "start": 2.5,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Tight Greens x 3",
+          "bloon": "Green",
+          "count": 3,
+          "start": 15.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Grouped Blues x 15",
+          "bloon": "Blue",
+          "count": 15,
+          "start": 17.5,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Reds x 20",
+          "bloon": "Red",
+          "count": 20,
+          "start": 0.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Grouped Greens x 6",
+          "bloon": "Green",
+          "count": 6,
+          "start": 6.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Reds x 20",
+          "bloon": "Red",
+          "count": 20,
+          "start": 12.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Blues x 12",
+          "bloon": "Blue",
+          "count": 12,
+          "start": 0.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Spaced Yellows x 2",
+          "bloon": "Yellow",
+          "count": 2,
+          "start": 9.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Blues x 22",
+          "bloon": "Blue",
+          "count": 22,
+          "start": 12.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Grouped Greens x 6",
+          "bloon": "Green",
+          "count": 6,
+          "start": 21.0,
+          "duration": 3.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Blues x 20",
+          "bloon": "Blue",
+          "count": 20,
+          "start": 0.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Grouped Reds x 35",
+          "bloon": "Red",
+          "count": 35,
+          "start": 6.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Spaced Greens x 5",
+          "bloon": "Green",
+          "count": 5,
+          "start": 16.5,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Yellows x 5",
+          "bloon": "Yellow",
+          "count": 5,
+          "start": 20.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Yellows x 16",
+          "bloon": "Yellow",
+          "count": 16,
+          "start": 0.0,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Grouped Blues x 10",
+          "bloon": "Blue",
+          "count": 10,
+          "start": 8.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Spaced Greens x 10",
+          "bloon": "Green",
+          "count": 10,
+          "start": 6.2,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Spaced Pinks x 4",
+          "bloon": "Pink",
+          "count": 4,
+          "start": 13.0,
+          "duration": 6.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Blues x 20",
+          "bloon": "Blue",
+          "count": 20,
+          "start": 0.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Spaced Greens x 15",
+          "bloon": "Green",
+          "count": 15,
+          "start": 11.0,
+          "duration": 13.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Greens x 20",
+          "bloon": "Green",
+          "count": 20,
+          "start": 0.0,
+          "duration": 7.0
+        },
+        {
+          "groupName": "Grouped Yellows x 14",
+          "bloon": "Yellow",
+          "count": 14,
+          "start": 9.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Reds x 55",
+          "bloon": "Red",
+          "count": 55,
+          "start": 0.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Grouped Greens x 20",
+          "bloon": "Green",
+          "count": 20,
+          "start": 0.5,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Spaced Pinks x 10",
+          "bloon": "Pink",
+          "count": 10,
+          "start": 1.0,
+          "duration": 10.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Yellows x 15",
+          "bloon": "Yellow",
+          "count": 15,
+          "start": 0.0,
+          "duration": 18.0
+        },
+        {
+          "groupName": "Grouped Pinks x 12",
+          "bloon": "Pink",
+          "count": 12,
+          "start": 6.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Tight Pinks x 5",
+          "bloon": "Pink",
+          "count": 5,
+          "start": 20.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Tight Yellows x 4",
+          "bloon": "Yellow",
+          "count": 4,
+          "start": 23.0,
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Yellows x 3",
+          "bloon": "Yellow",
+          "count": 3,
+          "start": 0.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Grouped Blues x 30",
+          "bloon": "Blue",
+          "count": 30,
+          "start": 0.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Tight Yellows x 3",
+          "bloon": "Yellow",
+          "count": 3,
+          "start": 4.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Grouped Blues x 30",
+          "bloon": "Blue",
+          "count": 30,
+          "start": 17.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Tight Yellows x 3",
+          "bloon": "Yellow",
+          "count": 3,
+          "start": 26.0,
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Blacks x 7",
+          "bloon": "Black",
+          "count": 7,
+          "start": 0.0,
+          "duration": 10.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Reds x 60",
+          "bloon": "Red",
+          "count": 60,
+          "start": 0.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Grouped Greens x 10",
+          "bloon": "Green",
+          "count": 10,
+          "start": 4.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Blues x 50",
+          "bloon": "Blue",
+          "count": 50,
+          "start": 9.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Grouped Greens x 8",
+          "bloon": "Green",
+          "count": 8,
+          "start": 12.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Whites x 7",
+          "bloon": "White",
+          "count": 7,
+          "start": 0.0,
+          "duration": 8.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Regrow Yellows x 10",
+          "bloon": "YellowRegrow",
+          "count": 10,
+          "start": 0.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Grouped Greens x 15",
+          "bloon": "Green",
+          "count": 15,
+          "start": 7.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Grouped Regrow Pinks x 5",
+          "bloon": "PinkRegrow",
+          "count": 5,
+          "start": 14.0,
+          "duration": 3.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Regrow Blacks x 6",
+          "bloon": "BlackRegrow",
+          "count": 6,
+          "start": 0.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Regrow Whites x 6",
+          "bloon": "WhiteRegrow",
+          "count": 6,
+          "start": 0.4,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Purples x 1",
+          "bloon": "Purple",
+          "count": 1,
+          "start": 22.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Greens x 25",
+          "bloon": "Green",
+          "count": 25,
+          "start": 0.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Grouped Blues x 25",
+          "bloon": "Blue",
+          "count": 25,
+          "start": 0.6,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Purples x 8",
+          "bloon": "Purple",
+          "count": 8,
+          "start": 2.0,
+          "duration": 18.0
+        },
+        {
+          "groupName": "Tight Yellows x 10",
+          "bloon": "Yellow",
+          "count": 10,
+          "start": 23.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Blues x 18",
+          "bloon": "Blue",
+          "count": 18,
+          "start": 0.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Grouped Yellows x 12",
+          "bloon": "Yellow",
+          "count": 12,
+          "start": 4.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Spaced Blacks x 8",
+          "bloon": "Black",
+          "count": 8,
+          "start": 6.0,
+          "duration": 12.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Greens x 12",
+          "bloon": "Green",
+          "count": 12,
+          "start": 0.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Spaced Regrow Zebras x 5",
+          "bloon": "ZebraRegrow",
+          "count": 5,
+          "start": 6.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Grouped Greens x 12",
+          "bloon": "Green",
+          "count": 12,
+          "start": 12.0,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Whites x 10",
+          "bloon": "White",
+          "count": 10,
+          "start": 0.0,
+          "duration": 16.0
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 0.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 2.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 4.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 6.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 8.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 10.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 12.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Tight Pinks x 2",
+          "bloon": "Pink",
+          "count": 2,
+          "start": 14.0,
+          "duration": 0.2
+        },
+        {
+          "groupName": "Spaced Purples x 5",
+          "bloon": "Purple",
+          "count": 5,
+          "start": 14.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Camo Blues x 3",
+          "bloon": "BlueCamo",
+          "count": 3,
+          "start": 0.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Grouped Camo Blues x 3",
+          "bloon": "BlueCamo",
+          "count": 3,
+          "start": 8.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Pinks x 12",
+          "bloon": "Pink",
+          "count": 12,
+          "start": 0.0,
+          "duration": 8.7
+        },
+        {
+          "groupName": "Spaced Regrow Yellows x 12",
+          "bloon": "YellowRegrow",
+          "count": 12,
+          "start": 0.0,
+          "duration": 8.7
+        },
+        {
+          "groupName": "Spaced Zebras x 4",
+          "bloon": "Zebra",
+          "count": 4,
+          "start": 11.08333,
+          "duration": 3.426
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Blacks x 4",
+          "bloon": "Black",
+          "count": 4,
+          "start": 26.53,
+          "duration": 7.725
+        },
+        {
+          "groupName": "Tight Greens x 30",
+          "bloon": "Green",
+          "count": 30,
+          "start": 19.05,
+          "duration": 7.345833
+        },
+        {
+          "groupName": "Grouped Blues x 30",
+          "bloon": "Blue",
+          "count": 30,
+          "start": 11.54,
+          "duration": 8.000001
+        },
+        {
+          "groupName": "Spaced Blacks x 4",
+          "bloon": "Black",
+          "count": 4,
+          "start": 0.02,
+          "duration": 12.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Leads x 6",
+          "bloon": "Lead",
+          "count": 6,
+          "start": 0.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Grouped Whites x 10",
+          "bloon": "White",
+          "count": 10,
+          "start": 7.6,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Grouped Blues x 20",
+          "bloon": "Blue",
+          "count": 20,
+          "start": 7.0,
+          "duration": 6.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Pinks x 20",
+          "bloon": "Pink",
+          "count": 20,
+          "start": 0.0,
+          "duration": 11.0
+        },
+        {
+          "groupName": "Tight Greens x 20",
+          "bloon": "Green",
+          "count": 20,
+          "start": 10.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Regrow Whites x 9",
+          "bloon": "WhiteRegrow",
+          "count": 9,
+          "start": 16.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Yellows x 25",
+          "bloon": "Yellow",
+          "count": 25,
+          "start": 13.5,
+          "duration": 6.5
+        },
+        {
+          "groupName": "Tight Greens x 25",
+          "bloon": "Green",
+          "count": 25,
+          "start": 14.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Tight Blues x 40",
+          "bloon": "Blue",
+          "count": 40,
+          "start": 6.5,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Grouped Camo Yellows x 10",
+          "bloon": "YellowCamo",
+          "count": 10,
+          "start": 0.02,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Grouped Regrow Leads x 6",
+          "bloon": "LeadRegrow",
+          "count": 6,
+          "start": 12.75,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Whites x 14",
+          "bloon": "White",
+          "count": 14,
+          "start": 0.0,
+          "duration": 9.0
+        },
+        {
+          "groupName": "Grouped Blacks x 14",
+          "bloon": "Black",
+          "count": 14,
+          "start": 0.3,
+          "duration": 9.0
+        },
+        {
+          "groupName": "Grouped Purples x 10",
+          "bloon": "Purple",
+          "count": 10,
+          "start": 10.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Leads x 8",
+          "bloon": "Lead",
+          "count": 8,
+          "start": 0.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Pinks x 25",
+          "bloon": "Pink",
+          "count": 25,
+          "start": 3.0,
+          "duration": 11.0
+        },
+        {
+          "groupName": "Grouped Purples x 8",
+          "bloon": "Purple",
+          "count": 8,
+          "start": 15.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Pinks x 25",
+          "bloon": "Pink",
+          "count": 25,
+          "start": 18.0,
+          "duration": 11.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Rainbows x 6",
+          "bloon": "Rainbow",
+          "count": 6,
+          "start": 5.1,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Grouped Yellows x 30",
+          "bloon": "Yellow",
+          "count": 30,
+          "start": 0.0,
+          "duration": 15.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Yellows x 60",
+          "bloon": "Yellow",
+          "count": 60,
+          "start": 0.0,
+          "duration": 14.0
+        },
+        {
+          "groupName": "Grouped Purples x 12",
+          "bloon": "Purple",
+          "count": 12,
+          "start": 7.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Grouped Zebras x 12",
+          "bloon": "Zebra",
+          "count": 12,
+          "start": 7.1,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Pinks x 60",
+          "bloon": "Pink",
+          "count": 60,
+          "start": 0.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Tight Yellows x 40",
+          "bloon": "Yellow",
+          "count": 40,
+          "start": 8.0,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Tight Greens x 20",
+          "bloon": "Green",
+          "count": 20,
+          "start": 14.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Grouped Rainbows x 12",
+          "bloon": "Rainbow",
+          "count": 12,
+          "start": 20.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Pinks x 30",
+          "bloon": "Pink",
+          "count": 30,
+          "start": 0.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Blacks x 40",
+          "bloon": "Black",
+          "count": 40,
+          "start": 2.5,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Tight Pinks x 30",
+          "bloon": "Pink",
+          "count": 30,
+          "start": 6.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Camo Regrow Greens x 10",
+          "bloon": "GreenRegrowCamo",
+          "count": 10,
+          "start": 8.5,
+          "duration": 1.5
+        },
+        {
+          "groupName": "Tight Camo Regrow Yellows x 8",
+          "bloon": "YellowRegrowCamo",
+          "count": 8,
+          "start": 11.0,
+          "duration": 1.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Camo Whites x 6",
+          "bloon": "WhiteCamo",
+          "count": 6,
+          "start": 0.0,
+          "duration": 0.75
+        },
+        {
+          "groupName": "Grouped Purples x 25",
+          "bloon": "Purple",
+          "count": 25,
+          "start": 1.2,
+          "duration": 14.0
+        },
+        {
+          "groupName": "Tight Camo Blacks x 6",
+          "bloon": "BlackCamo",
+          "count": 6,
+          "start": 16.0,
+          "duration": 0.75
+        },
+        {
+          "groupName": "Grouped Leads x 25",
+          "bloon": "Lead",
+          "count": 25,
+          "start": 17.0,
+          "duration": 14.0
+        },
+        {
+          "groupName": "Tight Camo Zebras x 6",
+          "bloon": "ZebraCamo",
+          "count": 6,
+          "start": 25.0,
+          "duration": 0.75
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Yellows x 40",
+          "bloon": "Yellow",
+          "count": 40,
+          "start": 0.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Camo Leads x 12",
+          "bloon": "LeadCamo",
+          "count": 12,
+          "start": 2.0,
+          "duration": 11.0
+        },
+        {
+          "groupName": "Tight Pinks x 40",
+          "bloon": "Pink",
+          "count": 40,
+          "start": 4.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Rainbows x 13",
+          "bloon": "Rainbow",
+          "count": 13,
+          "start": 8.0,
+          "duration": 3.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Ceramics x 8",
+          "bloon": "Ceramic",
+          "count": 8,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Tight Greens x 15",
+          "bloon": "Green",
+          "count": 15,
+          "start": 5.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Blacks x 15",
+          "bloon": "Black",
+          "count": 15,
+          "start": 10.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Zebras x 15",
+          "bloon": "Zebra",
+          "count": 15,
+          "start": 18.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Regrow Yellows x 12",
+          "bloon": "YellowRegrow",
+          "count": 12,
+          "start": 0.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Tight Regrow Rainbows x 12",
+          "bloon": "RainbowRegrow",
+          "count": 12,
+          "start": 10.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Greens x 150",
+          "bloon": "Green",
+          "count": 150,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Tight Yellows x 130",
+          "bloon": "Yellow",
+          "count": 130,
+          "start": 17.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Tight Pinks x 100",
+          "bloon": "Pink",
+          "count": 100,
+          "start": 25.0,
+          "duration": 18.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Ceramics x 8",
+          "bloon": "Ceramic",
+          "count": 8,
+          "start": 0.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Grouped Camo Leads x 6",
+          "bloon": "LeadCamo",
+          "count": 6,
+          "start": 4.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Zebras x 20",
+          "bloon": "Zebra",
+          "count": 20,
+          "start": 0.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Purples x 20",
+          "bloon": "Purple",
+          "count": 20,
+          "start": 0.5,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Tight Purples x 12",
+          "bloon": "Purple",
+          "count": 12,
+          "start": 17.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Zebras x 12",
+          "bloon": "Zebra",
+          "count": 12,
+          "start": 17.1,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 2",
+          "bloon": "Moab",
+          "count": 2,
+          "start": 0.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Rainbows x 12",
+          "bloon": "Rainbow",
+          "count": 12,
+          "start": 8.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Fortified Leads x 4",
+          "bloon": "LeadFortified",
+          "count": 4,
+          "start": 13.0,
+          "duration": 2.5
+        },
+        {
+          "groupName": "Spaced Moabs x 3",
+          "bloon": "Moab",
+          "count": 3,
+          "start": 15.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Zebras x 6",
+          "bloon": "Zebra",
+          "count": 6,
+          "start": 0.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Spaced Fortified Ceramics x 4",
+          "bloon": "CeramicFortified",
+          "count": 4,
+          "start": 2.5,
+          "duration": 7.0
+        },
+        {
+          "groupName": "Grouped Zebras x 6",
+          "bloon": "Zebra",
+          "count": 6,
+          "start": 10.0,
+          "duration": 2.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Camo Ceramics x 5",
+          "bloon": "CeramicCamo",
+          "count": 5,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Spaced Ceramics x 5",
+          "bloon": "Ceramic",
+          "count": 5,
+          "start": 0.1,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Spaced Regrow Ceramics x 5",
+          "bloon": "CeramicRegrow",
+          "count": 5,
+          "start": 0.2,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Tight Pinks x 10",
+          "bloon": "Pink",
+          "count": 10,
+          "start": 2.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Tight Pinks x 10",
+          "bloon": "Pink",
+          "count": 10,
+          "start": 6.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Tight Pinks x 10",
+          "bloon": "Pink",
+          "count": 10,
+          "start": 10.0,
+          "duration": 0.5
+        },
+        {
+          "groupName": "Tight Pinks x 10",
+          "bloon": "Pink",
+          "count": 10,
+          "start": 14.0,
+          "duration": 0.5
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Regrow Whites x 40",
+          "bloon": "WhiteRegrow",
+          "count": 40,
+          "start": 0.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Spaced Regrow Blacks x 40",
+          "bloon": "BlackRegrow",
+          "count": 40,
+          "start": 15.0,
+          "duration": 30.0
+        },
+        {
+          "groupName": "Tight Rainbows x 30",
+          "bloon": "Rainbow",
+          "count": 30,
+          "start": 47.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Camo Regrow Purples x 30",
+          "bloon": "PurpleRegrowCamo",
+          "count": 30,
+          "start": 52.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Regrow Rainbows x 20",
+          "bloon": "RainbowRegrow",
+          "count": 20,
+          "start": 5.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Grouped Fortified Ceramics x 8",
+          "bloon": "CeramicFortified",
+          "count": 8,
+          "start": 25.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Grouped Regrow Rainbows x 20",
+          "bloon": "RainbowRegrow",
+          "count": 20,
+          "start": 45.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Tight Greens x 600",
+          "bloon": "Green",
+          "count": 600,
+          "start": 0.0,
+          "duration": 50.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Tight Camo Ceramics x 10",
+          "bloon": "CeramicCamo",
+          "count": 10,
+          "start": 10.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Fortified Leads x 15",
+          "bloon": "LeadFortified",
+          "count": 15,
+          "start": 6.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Camo Ceramics x 10",
+          "bloon": "CeramicCamo",
+          "count": 10,
+          "start": 14.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 18.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Ceramics x 10",
+          "bloon": "Ceramic",
+          "count": 10,
+          "start": 0.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Grouped Camo Regrow Rainbows x 20",
+          "bloon": "RainbowRegrowCamo",
+          "count": 20,
+          "start": 3.3,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Spaced Moabs x 2",
+          "bloon": "Moab",
+          "count": 2,
+          "start": 6.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Grouped Camo Regrow Rainbows x 10",
+          "bloon": "RainbowRegrowCamo",
+          "count": 10,
+          "start": 10.0,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Leads x 25",
+          "bloon": "Lead",
+          "count": 25,
+          "start": 0.0,
+          "duration": 14.0
+        },
+        {
+          "groupName": "Grouped Purples x 25",
+          "bloon": "Purple",
+          "count": 25,
+          "start": 0.1,
+          "duration": 14.0
+        },
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 13.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Grouped Ceramics x 15",
+          "bloon": "Ceramic",
+          "count": 15,
+          "start": 15.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Tight Fortified Ceramics x 5",
+          "bloon": "CeramicFortified",
+          "count": 5,
+          "start": 20.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Regrow Zebras x 60",
+          "bloon": "ZebraRegrow",
+          "count": 60,
+          "start": 0.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Tight Regrow Leads x 40",
+          "bloon": "LeadRegrow",
+          "count": 40,
+          "start": 12.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Bfbs x 1",
+          "bloon": "Bfb",
+          "count": 1,
+          "start": 20.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Grouped Camo Leads x 30",
+          "bloon": "LeadCamo",
+          "count": 30,
+          "start": 4.5,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Spaced Bfbs x 1",
+          "bloon": "Bfb",
+          "count": 1,
+          "start": 12.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Grouped Camo Leads x 30",
+          "bloon": "LeadCamo",
+          "count": 30,
+          "start": 11.5,
+          "duration": 12.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Greens x 300",
+          "bloon": "Green",
+          "count": 300,
+          "start": 0.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Tight Yellows x 250",
+          "bloon": "Yellow",
+          "count": 250,
+          "start": 0.0,
+          "duration": 4.2
+        },
+        {
+          "groupName": "Tight Ceramics x 10",
+          "bloon": "Ceramic",
+          "count": 10,
+          "start": 4.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Ceramics x 10",
+          "bloon": "Ceramic",
+          "count": 10,
+          "start": 10.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Tight Ceramics x 10",
+          "bloon": "Ceramic",
+          "count": 10,
+          "start": 16.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Spaced Moabs x 1",
+          "bloon": "Moab",
+          "count": 1,
+          "start": 18.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Camo Blacks x 30",
+          "bloon": "BlackCamo",
+          "count": 30,
+          "start": 0.0,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Grouped Camo Leads x 30",
+          "bloon": "LeadCamo",
+          "count": 30,
+          "start": 0.1,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Tight Rainbows x 20",
+          "bloon": "Rainbow",
+          "count": 20,
+          "start": 15.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 2",
+          "bloon": "Moab",
+          "count": 2,
+          "start": 0.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Spaced Moabs x 2",
+          "bloon": "Moab",
+          "count": 2,
+          "start": 13.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Spaced Purples x 8",
+          "bloon": "Purple",
+          "count": 8,
+          "start": 1.8,
+          "duration": 13.0
+        },
+        {
+          "groupName": "Spaced Ceramics x 8",
+          "bloon": "Ceramic",
+          "count": 8,
+          "start": 1.0,
+          "duration": 13.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 4",
+          "bloon": "Moab",
+          "count": 4,
+          "start": 0.0,
+          "duration": 40.0
+        },
+        {
+          "groupName": "Grouped Regrow Blacks x 50",
+          "bloon": "BlackRegrow",
+          "count": 50,
+          "start": 2.0,
+          "duration": 32.0
+        },
+        {
+          "groupName": "Grouped Regrow Whites x 50",
+          "bloon": "WhiteRegrow",
+          "count": 50,
+          "start": 2.4,
+          "duration": 32.0
+        },
+        {
+          "groupName": "Spaced Bfbs x 2",
+          "bloon": "Bfb",
+          "count": 2,
+          "start": 50.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Ceramics x 10",
+          "bloon": "Ceramic",
+          "count": 10,
+          "start": 0.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Tight Fortified Camo Regrow Leads x 30",
+          "bloon": "LeadRegrowFortifiedCamo",
+          "count": 30,
+          "start": 10.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Regrow Ceramics x 10",
+          "bloon": "CeramicRegrow",
+          "count": 10,
+          "start": 15.0,
+          "duration": 8.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Zomgs x 1",
+          "bloon": "Zomg",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Regrow Zebras x 150",
+          "bloon": "ZebraRegrow",
+          "count": 150,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Grouped Fortified Regrow Ceramics x 20",
+          "bloon": "CeramicRegrowFortified",
+          "count": 20,
+          "start": 15.0,
+          "duration": 10.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Whites x 200",
+          "bloon": "White",
+          "count": 200,
+          "start": 5.0,
+          "duration": 30.0
+        },
+        {
+          "groupName": "Tight Purples x 200",
+          "bloon": "Purple",
+          "count": 200,
+          "start": 0.0,
+          "duration": 30.0
+        },
+        {
+          "groupName": "Grouped Camo Regrow Rainbows x 15",
+          "bloon": "RainbowRegrowCamo",
+          "count": 15,
+          "start": 31.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Spaced Fortified Moabs x 2",
+          "bloon": "MoabFortified",
+          "count": 2,
+          "start": 40.0,
+          "duration": 8.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Camo Ceramics x 30",
+          "bloon": "CeramicCamo",
+          "count": 30,
+          "start": 0.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Tight Regrow Ceramics x 30",
+          "bloon": "CeramicRegrow",
+          "count": 30,
+          "start": 7.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Tight Fortified Ceramics x 30",
+          "bloon": "CeramicFortified",
+          "count": 30,
+          "start": 14.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Grouped Camo Purples x 75",
+          "bloon": "PurpleCamo",
+          "count": 75,
+          "start": 0.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Bfbs x 4",
+          "bloon": "Bfb",
+          "count": 4,
+          "start": 0.0,
+          "duration": 12.0
+        },
+        {
+          "groupName": "Spaced Fortified Moabs x 3",
+          "bloon": "MoabFortified",
+          "count": 3,
+          "start": 15.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Zebras x 100",
+          "bloon": "Zebra",
+          "count": 100,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Tight Pinks x 200",
+          "bloon": "Pink",
+          "count": 200,
+          "start": 18.0,
+          "duration": 25.0
+        },
+        {
+          "groupName": "Tight Yellows x 400",
+          "bloon": "Yellow",
+          "count": 400,
+          "start": 23.0,
+          "duration": 25.0
+        },
+        {
+          "groupName": "Tight Rainbows x 70",
+          "bloon": "Rainbow",
+          "count": 70,
+          "start": 40.0,
+          "duration": 15.0
+        },
+        {
+          "groupName": "Tight Ceramics x 50",
+          "bloon": "Ceramic",
+          "count": 50,
+          "start": 50.0,
+          "duration": 10.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Zomgs x 1",
+          "bloon": "Zomg",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Spaced Fortified Moabs x 3",
+          "bloon": "MoabFortified",
+          "count": 3,
+          "start": 8.0,
+          "duration": 3.0
+        },
+        {
+          "groupName": "Spaced Bfbs x 2",
+          "bloon": "Bfb",
+          "count": 2,
+          "start": 15.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Zomgs x 1",
+          "bloon": "Zomg",
+          "count": 1,
+          "start": 24.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Moabs x 4",
+          "bloon": "Moab",
+          "count": 4,
+          "start": 0.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Tight Camo Regrow Rainbows x 80",
+          "bloon": "RainbowRegrowCamo",
+          "count": 80,
+          "start": 6.0,
+          "duration": 2.0
+        },
+        {
+          "groupName": "Grouped Fortified Regrow Ceramics x 13",
+          "bloon": "CeramicRegrowFortified",
+          "count": 13,
+          "start": 9.0,
+          "duration": 8.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Fortified Moabs x 6",
+          "bloon": "MoabFortified",
+          "count": 6,
+          "start": 0.0,
+          "duration": 7.0
+        },
+        {
+          "groupName": "Spaced Fortified Bfbs x 1",
+          "bloon": "BfbFortified",
+          "count": 1,
+          "start": 10.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Fortified Camo Leads x 60",
+          "bloon": "LeadFortifiedCamo",
+          "count": 60,
+          "start": 0.0,
+          "duration": 7.0
+        },
+        {
+          "groupName": "Tight Camo Blacks x 120",
+          "bloon": "BlackCamo",
+          "count": 120,
+          "start": 6.5,
+          "duration": 8.0
+        },
+        {
+          "groupName": "Spaced Camo Ddts x 1",
+          "bloon": "Ddt",
+          "count": 1,
+          "start": 10.0,
+          "duration": 1.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Grouped Rainbows x 150",
+          "bloon": "Rainbow",
+          "count": 150,
+          "start": 0.0,
+          "duration": 45.0
+        },
+        {
+          "groupName": "Grouped Purples x 150",
+          "bloon": "Purple",
+          "count": 150,
+          "start": 0.1,
+          "duration": 45.0
+        },
+        {
+          "groupName": "Grouped Whites x 150",
+          "bloon": "White",
+          "count": 150,
+          "start": 0.2,
+          "duration": 45.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Zomgs x 1",
+          "bloon": "Zomg",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        },
+        {
+          "groupName": "Spaced Ddts x 2",
+          "bloon": "Ddt",
+          "count": 2,
+          "start": 8.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Fortified Moabs x 8",
+          "bloon": "MoabFortified",
+          "count": 8,
+          "start": 15.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Spaced Fortified Bfbs x 3",
+          "bloon": "BfbFortified",
+          "count": 3,
+          "start": 25.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Bfbs x 4",
+          "bloon": "Bfb",
+          "count": 4,
+          "start": 0.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Zomgs x 2",
+          "bloon": "Zomg",
+          "count": 2,
+          "start": 8.0,
+          "duration": 5.0
+        },
+        {
+          "groupName": "Grouped Fortified Camo Regrow Ceramics x 40",
+          "bloon": "CeramicRegrowFortifiedCamo",
+          "count": 40,
+          "start": 10.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Fortified Moabs x 7",
+          "bloon": "MoabFortified",
+          "count": 7,
+          "start": 0.0,
+          "duration": 7.0
+        },
+        {
+          "groupName": "Spaced Bfbs x 3",
+          "bloon": "Bfb",
+          "count": 3,
+          "start": 8.0,
+          "duration": 10.0
+        },
+        {
+          "groupName": "Spaced Fortified Ddts x 2",
+          "bloon": "DdtFortified",
+          "count": 2,
+          "start": 9.0,
+          "duration": 4.0
+        },
+        {
+          "groupName": "Spaced Zomgs x 2",
+          "bloon": "Zomg",
+          "count": 2,
+          "start": 20.0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Tight Ceramics x 100",
+          "bloon": "Ceramic",
+          "count": 100,
+          "start": 0.0,
+          "duration": 20.0
+        },
+        {
+          "groupName": "Grouped Fortified Ceramics x 80",
+          "bloon": "CeramicFortified",
+          "count": 80,
+          "start": 24.0,
+          "duration": 27.525
+        },
+        {
+          "groupName": "Tight Rainbows x 200",
+          "bloon": "Rainbow",
+          "count": 200,
+          "start": 8.0,
+          "duration": 6.0
+        },
+        {
+          "groupName": "Tight Purples x 400",
+          "bloon": "Purple",
+          "count": 400,
+          "start": 15.0,
+          "duration": 20.0
+        }
+      ]
+    },
+    {
+      "hint": "",
+      "bloonGroups": [
+        {
+          "groupName": "Spaced Bads x 1",
+          "bloon": "Bad",
+          "count": 1,
+          "start": 0.0,
+          "duration": 1.0
+        }
+      ]
+    }
+  ]
+}

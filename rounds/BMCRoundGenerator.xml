@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoundGenerator>
+  <RoundsCalculator>
+    <RoundsBaseValue>2</RoundsBaseValue>
+    <RoundsIncrease>1</RoundsIncrease>
+    <RoundsCap>25</RoundsCap>
+    <RoundsCapReduction>20</RoundsCapReduction>
+    <RoundsCapModifier>0.2</RoundsCapModifier>
+    <RoundBudgetBaseValue>10</RoundBudgetBaseValue>
+    <RoundBudgetBaseMultiplier>5</RoundBudgetBaseMultiplier>
+    <RoundBudgetIncrement>10</RoundBudgetIncrement>
+    <RoundBudgetBaseGrowth>7</RoundBudgetBaseGrowth>
+    <RoundBudgetGrowthMultiplier>0.9</RoundBudgetGrowthMultiplier>
+  </RoundsCalculator>
+  <Themes>
+    <Theme name="Standard" weight="0.5">
+      <BloonChances>
+        <BloonChance type="Red">1</BloonChance>
+        <BloonChance type="Blue">1</BloonChance>
+        <BloonChance type="Green">1</BloonChance>
+        <BloonChance type="Yellow">1</BloonChance>
+        <BloonChance type="Pink">1</BloonChance>
+        <BloonChance type="Black">1</BloonChance>
+        <BloonChance type="White">1</BloonChance>
+        <BloonChance type="Zebra">1</BloonChance>
+        <BloonChance type="Lead">1</BloonChance>
+        <BloonChance type="Rainbow">1</BloonChance>
+        <BloonChance type="Ceramic">1</BloonChance>
+        <BloonChance type="MOAB">1</BloonChance>
+        <BloonChance type="BFB">1</BloonChance>
+        <BloonChance type="ZOMG">1</BloonChance>
+        <BloonChance type="DDT">0</BloonChance>
+        <BloonChance type="MOABCluster">0</BloonChance>
+        <BloonChance type="BFBCluster">0</BloonChance>
+      </BloonChances>
+      <BloonFillRBEs>
+        <BloonFillRBE type="Red">1</BloonFillRBE>
+        <BloonFillRBE type="Blue">2</BloonFillRBE>
+        <BloonFillRBE type="Green">3</BloonFillRBE>
+        <BloonFillRBE type="Yellow">4</BloonFillRBE>
+        <BloonFillRBE type="Pink">5</BloonFillRBE>
+        <BloonFillRBE type="Black">11</BloonFillRBE>
+        <BloonFillRBE type="White">11</BloonFillRBE>
+        <BloonFillRBE type="Zebra">23</BloonFillRBE>
+        <BloonFillRBE type="Lead">23</BloonFillRBE>
+        <BloonFillRBE type="Rainbow">47</BloonFillRBE>
+        <BloonFillRBE type="Ceramic">104</BloonFillRBE>
+        <BloonFillRBE type="MOAB">154</BloonFillRBE>
+        <BloonFillRBE type="BFB">462</BloonFillRBE>
+        <BloonFillRBE type="ZOMG">1386</BloonFillRBE>
+        <BloonFillRBE type="DDT">1387</BloonFillRBE>
+        <BloonFillRBE type="MOABCluster">1388</BloonFillRBE>
+        <BloonFillRBE type="BFBCluster">1389</BloonFillRBE>
+      </BloonFillRBEs>
+      <BloonRBEs>
+        <BloonRBE type="Red">1</BloonRBE>
+        <BloonRBE type="Blue">2</BloonRBE>
+        <BloonRBE type="Green">3</BloonRBE>
+        <BloonRBE type="Yellow">4</BloonRBE>
+        <BloonRBE type="Pink">5</BloonRBE>
+        <BloonRBE type="Black">11</BloonRBE>
+        <BloonRBE type="White">11</BloonRBE>
+        <BloonRBE type="Zebra">23</BloonRBE>
+        <BloonRBE type="Lead">23</BloonRBE>
+        <BloonRBE type="Rainbow">47</BloonRBE>
+        <BloonRBE type="Ceramic">104</BloonRBE>
+        <BloonRBE type="MOAB">616</BloonRBE>
+        <BloonRBE type="BFB">1848</BloonRBE>
+        <BloonRBE type="ZOMG">3164</BloonRBE>
+        <BloonRBE type="DDT">3165</BloonRBE>
+        <BloonRBE type="MOABCluster">3166</BloonRBE>
+        <BloonRBE type="BFBCluster">3167</BloonRBE>
+      </BloonRBEs>
+      <GroupingProbabilities>
+        <GroupingProbability type="Single">0.05</GroupingProbability>
+        <GroupingProbability type="Small">0.25</GroupingProbability>
+        <GroupingProbability type="Large">0.99</GroupingProbability>
+        <GroupingProbability type="XLarge">1</GroupingProbability>
+      </GroupingProbabilities>
+      <SmallGroupMin>3</SmallGroupMin>
+      <SmallGroupRandom>5</SmallGroupRandom>
+      <LargeGroupMin>8</LargeGroupMin>
+      <LargeGroupRandom>12</LargeGroupRandom>
+      <XLargeGroupMin>20</XLargeGroupMin>
+      <XLargeGroupRandom>10</XLargeGroupRandom>
+      <LowerBloonChance>0.2</LowerBloonChance>
+      <SpacingRBEFactors>
+        <SpacingRBEFactor type="UltraClose">1.5</SpacingRBEFactor>
+        <SpacingRBEFactor type="SuperClose">1.2</SpacingRBEFactor>
+        <SpacingRBEFactor type="Close">1.05</SpacingRBEFactor>
+        <SpacingRBEFactor type="Normal">1</SpacingRBEFactor>
+        <SpacingRBEFactor type="Loose">0.8</SpacingRBEFactor>
+      </SpacingRBEFactors>
+      <SpacingValues>
+        <SpacingValue type="UltraClose">0.04</SpacingValue>
+        <SpacingValue type="SuperClose">0.1</SpacingValue>
+        <SpacingValue type="Close">0.2</SpacingValue>
+        <SpacingValue type="Normal">0.7</SpacingValue>
+        <SpacingValue type="Loose">1.2</SpacingValue>
+      </SpacingValues>
+      <SpacingProbabilities>
+        <SpacingProbability type="UltraClose">0.03</SpacingProbability>
+        <SpacingProbability type="SuperClose">0.13</SpacingProbability>
+        <SpacingProbability type="Close">0.34</SpacingProbability>
+        <SpacingProbability type="Normal">0.86</SpacingProbability>
+        <SpacingProbability type="Loose">1</SpacingProbability>
+      </SpacingProbabilities>
+      <CamoCost>2.5</CamoCost>
+      <RegenCost>1.8</RegenCost>
+      <EarlyCost>1.2</EarlyCost>
+      <DelayCost>0.8</DelayCost>
+      <CamoProbability>0.05</CamoProbability>
+      <RegenProbability>0.15</RegenProbability>
+      <EarlyProbability>0.05</EarlyProbability>
+      <DelayProbability>0.1</DelayProbability>
+      <DelayLength>1.5</DelayLength>
+      <DifficultyRequiredBeforeCamo>12</DifficultyRequiredBeforeCamo>
+      <DifficultyRequiredBeforeRegen>8</DifficultyRequiredBeforeRegen>
+      <MinCamoRound>6</MinCamoRound>
+      <MinRegenRound>3</MinRegenRound>
+      <JumbleChance>0.1</JumbleChance>
+      <OrderByRank>FALSE</OrderByRank>
+      <EasyDifficultyThreshold>8</EasyDifficultyThreshold>
+      <EasyRBEMaxDifficulty>20</EasyRBEMaxDifficulty>
+      <MinMOABRoundDefault>20</MinMOABRoundDefault>
+      <CashPerPop>
+        <Tier1>
+          <NormalMultiplier>
+              <StartsAt>0</StartsAt>
+              <Multiplier>1.1</Multiplier>
+          </NormalMultiplier>
+          <HardcoreMultiplier>
+              <StartsAt>0</StartsAt>
+              <Multiplier>1.1</Multiplier>
+          </HardcoreMultiplier>
+          <BloonBeaconMultiplier>
+              <StartsAt>0</StartsAt>
+              <Multiplier>2.2</Multiplier>
+          </BloonBeaconMultiplier>
+        </Tier1>
+        <Tier2>
+            <NormalMultiplier>
+                <StartsAt>10</StartsAt>
+                <Multiplier>1</Multiplier>
+            </NormalMultiplier>
+            <HardcoreMultiplier>
+                <StartsAt>10</StartsAt>
+                <Multiplier>1</Multiplier>
+            </HardcoreMultiplier>
+            <BloonBeaconMultiplier>
+                <StartsAt>5</StartsAt>
+                <Multiplier>2</Multiplier>
+            </BloonBeaconMultiplier>
+        </Tier2>
+        <Tier3>
+            <NormalMultiplier>
+                <StartsAt>14</StartsAt>
+                <Multiplier>0.65</Multiplier>
+            </NormalMultiplier>
+            <HardcoreMultiplier>
+                <StartsAt>14</StartsAt>
+                <Multiplier>0.5</Multiplier>
+            </HardcoreMultiplier>
+            <BloonBeaconMultiplier>
+                <StartsAt>7</StartsAt>
+                <Multiplier>1.5</Multiplier>
+            </BloonBeaconMultiplier>
+		</Tier3>
+        <Tier4>
+            <NormalMultiplier>
+                <StartsAt>21</StartsAt>
+                <Multiplier>0.2</Multiplier>
+            </NormalMultiplier>
+            <HardcoreMultiplier>
+                <StartsAt>21</StartsAt>
+                <Multiplier>0.2</Multiplier>
+            </HardcoreMultiplier>
+            <BloonBeaconMultiplier>
+                <StartsAt>11</StartsAt>
+                <Multiplier>1</Multiplier>
+            </BloonBeaconMultiplier>
+        </Tier4>
+        <Tier5>
+            <NormalMultiplier>
+                <StartsAt>26</StartsAt>
+                <Multiplier>0.05</Multiplier>
+            </NormalMultiplier>
+            <HardcoreMultiplier>
+                <StartsAt>26</StartsAt>
+                <Multiplier>0.05</Multiplier>
+            </HardcoreMultiplier>
+            <BloonBeaconMultiplier>
+                <StartsAt>13</StartsAt>
+                <Multiplier>0.2</Multiplier>
+            </BloonBeaconMultiplier>
+        </Tier5>
+      </CashPerPop>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>FALSE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>0</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="CamoCraziness" weight="0.05">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="DDT">1</BloonChance>
+      </BloonChances>
+      <CamoCost>1.5</CamoCost>
+      <CamoProbability>0.75</CamoProbability>
+      <DifficultyRequiredBeforeCamo>1</DifficultyRequiredBeforeCamo>
+      <MinCamoRound>0</MinCamoRound>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>CamoModTech</RequiredResearchLevel>
+      <MinimumTileDifficulty>11</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="RegrowRushOfDeath" weight="0.04">
+      <RegenCost>1.2</RegenCost>
+      <RegenProbability>0</RegenProbability>
+      <DifficultyRequiredBeforeRegen>1</DifficultyRequiredBeforeRegen>
+      <MinRegenRound>0</MinRegenRound>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>RubberRepair</RequiredResearchLevel>
+      <MinimumTileDifficulty>11</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="FastAndFurious" weight="0.04">
+      <BloonChances>
+        <BloonChance type="Black">0.2</BloonChance>
+        <BloonChance type="White">0.2</BloonChance>
+        <BloonChance type="Zebra">0.2</BloonChance>
+        <BloonChance type="Lead">0</BloonChance>
+        <BloonChance type="Rainbow">0.2</BloonChance>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="DDT">1</BloonChance>
+        <BloonChance type="MOABCluster">0.6</BloonChance>
+      </BloonChances>
+      <GroupingProbabilities>
+        <GroupingProbability type="Large">1</GroupingProbability>
+      </GroupingProbabilities>
+      <SmallGroupRandom>3</SmallGroupRandom>
+      <LargeGroupRandom>5</LargeGroupRandom>
+      <LowerBloonChance>0</LowerBloonChance>
+      <SpacingProbabilities>
+        <SpacingProbability type="UltraClose">0.06</SpacingProbability>
+        <SpacingProbability type="SuperClose">0.2</SpacingProbability>
+        <SpacingProbability type="Close">0.38</SpacingProbability>
+        <SpacingProbability type="Normal">0.8</SpacingProbability>
+        <SpacingProbability type="Loose">1</SpacingProbability>
+      </SpacingProbabilities>
+      <EarlyCost>1.2</EarlyCost>
+      <EarlyProbability>0.2</EarlyProbability>
+      <OrderByRank>TRUE</OrderByRank>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>FastBloons</RequiredResearchLevel>
+      <MinimumTileDifficulty>4</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="HardAndHeavy" weight="0.05">
+      <BloonChances>
+        <BloonChance type="Yellow">0.2</BloonChance>
+        <BloonChance type="Pink">0.2</BloonChance>
+        <BloonChance type="Black">0.7</BloonChance>
+        <BloonChance type="White">0.7</BloonChance>
+        <BloonChance type="Zebra">0.7</BloonChance>
+        <BloonChance type="Rainbow">0.25</BloonChance>
+      </BloonChances>
+      <GroupingProbabilities>
+        <GroupingProbability type="Large">1</GroupingProbability>
+      </GroupingProbabilities>
+      <SmallGroupRandom>3</SmallGroupRandom>
+      <LargeGroupRandom>5</LargeGroupRandom>
+      <LowerBloonChance>0</LowerBloonChance>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>HeavyBloonArmour</RequiredResearchLevel>
+      <MinimumTileDifficulty>11</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="CashStarve" weight="0.04">
+      <EasyRBEMaxDifficulty>0</EasyRBEMaxDifficulty>
+      <CashPerPop>
+        <Tier1>
+          <NormalMultiplier>0.9</NormalMultiplier>
+        </Tier1>
+        <Tier2>
+          <NormalMultiplier>0.95</NormalMultiplier>
+        </Tier2>
+      </CashPerPop>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>HeavyBloonArmour</RequiredResearchLevel>
+      <MinimumTileDifficulty>3</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="SneakyCamo" weight="-1">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="DDT">1</BloonChance>
+      </BloonChances>
+      <CamoProbability>0</CamoProbability>
+      <DifficultyRequiredBeforeCamo>0</DifficultyRequiredBeforeCamo>
+      <MinCamoRound>0</MinCamoRound>
+      <IsMVB>FALSE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>CamoModTech</RequiredResearchLevel>
+      <MinimumTileDifficulty>11</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="MOABPush" weight="-1">
+      <MinMOABRoundDefault>0</MinMOABRoundDefault>
+      <IsMVB>FALSE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>MOAB</RequiredResearchLevel>
+      <MinimumTileDifficulty>30</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="CamoRegrowPain" weight="0.05">
+      <CamoProbability>0.7</CamoProbability>
+      <RegenProbability>0</RegenProbability>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>CamoModTech</RequiredResearchLevel>
+      <MinimumTileDifficulty>13</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="ClusterChaos" weight="0.04">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="MOABCluster">0.6</BloonChance>
+        <BloonChance type="BFBCluster">0.6</BloonChance>
+      </BloonChances>
+      <SpacingProbabilities>
+        <SpacingProbability type="UltraClose">0.2</SpacingProbability>
+        <SpacingProbability type="SuperClose">0.55</SpacingProbability>
+        <SpacingProbability type="Close">0.95</SpacingProbability>
+        <SpacingProbability type="Normal">1</SpacingProbability>
+        <SpacingProbability type="Loose">1</SpacingProbability>
+      </SpacingProbabilities>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>3</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="RoundRamp" weight="0.05">
+      <BloonRBEs>
+        <BloonRBE type="Red">1</BloonRBE>
+        <BloonRBE type="Blue">2</BloonRBE>
+        <BloonRBE type="Green">3</BloonRBE>
+        <BloonRBE type="Yellow">3</BloonRBE>
+        <BloonRBE type="Pink">4</BloonRBE>
+        <BloonRBE type="Black">9</BloonRBE>
+        <BloonRBE type="White">9</BloonRBE>
+        <BloonRBE type="Zebra">20</BloonRBE>
+        <BloonRBE type="Lead">20</BloonRBE>
+        <BloonRBE type="Rainbow">40</BloonRBE>
+        <BloonRBE type="Ceramic">88</BloonRBE>
+        <BloonRBE type="MOAB">524</BloonRBE>
+        <BloonRBE type="BFB">1571</BloonRBE>
+        <BloonRBE type="ZOMG">2689</BloonRBE>
+        <BloonRBE type="DDT">2690</BloonRBE>
+        <BloonRBE type="MOABCluster">2691</BloonRBE>
+        <BloonRBE type="BFBCluster">2692</BloonRBE>
+      </BloonRBEs>
+      <OrderByRank>TRUE</OrderByRank>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>3</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="ZOMGZurprise" weight="-1">
+      <IsMVB>FALSE</IsMVB>
+      <IsMVM>TRUE</IsMVM>
+      <RequiredResearchLevel>ZOMG</RequiredResearchLevel>
+      <MinimumTileDifficulty>30</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="DDT" weight="0.04">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="DDT">1</BloonChance>
+      </BloonChances>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>FALSE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>30</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="PackedMOAB" weight="0.05">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="MOABCluster">1</BloonChance>
+      </BloonChances>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>FALSE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>30</MinimumTileDifficulty>
+    </Theme>
+    <Theme name="PackedBFB" weight="0.05">
+      <BloonChances>
+        <BloonChance type="ZOMG">0</BloonChance>
+        <BloonChance type="BFBCluster">1</BloonChance>
+      </BloonChances>
+      <IsMVB>TRUE</IsMVB>
+      <IsMVM>FALSE</IsMVM>
+      <RequiredResearchLevel>None</RequiredResearchLevel>
+      <MinimumTileDifficulty>30</MinimumTileDifficulty>
+    </Theme>
+  </Themes>
+  <ContestedTerritories>
+    <ContestDifficultyCurve>5</ContestDifficultyCurve>
+    <ContestDifficultySteepness>1.8</ContestDifficultySteepness>
+    <RoundOfDifficultyIncrease>31</RoundOfDifficultyIncrease>
+    <MOABHealthIncreasePerRoundPercent>0.15</MOABHealthIncreasePerRoundPercent>
+    <SpeedIncreasePerRoundPercent>0.05</SpeedIncreasePerRoundPercent>
+    <CeramicHealthAfterDifficultyIncrease>38</CeramicHealthAfterDifficultyIncrease>
+    <Tier>
+      <MinCityLevel>5</MinCityLevel>
+      <Difficulty>9</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>9</MinCityLevel>
+      <Difficulty>13</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>13</MinCityLevel>
+      <Difficulty>17</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>17</MinCityLevel>
+      <Difficulty>21</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>21</MinCityLevel>
+      <Difficulty>25</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>25</MinCityLevel>
+      <Difficulty>29</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>29</MinCityLevel>
+      <Difficulty>33</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>33</MinCityLevel>
+      <Difficulty>37</Difficulty>
+    </Tier>
+    <Tier>
+      <MinCityLevel>37</MinCityLevel>
+      <Difficulty>40</Difficulty>
+    </Tier>
+  </ContestedTerritories>
+</RoundGenerator>
