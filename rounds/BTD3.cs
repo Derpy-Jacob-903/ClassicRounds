@@ -61,7 +61,7 @@ namespace ClassicRounds.Rounds
             }
             else
             {
-                ranks = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Lead", "Rainbow", "Ceramic", BloonType.Moab];
+                ranks = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Lead", "Rainbow", "Ceramic", BloonType.Moab, BloonType.Bfb, BloonType.Zomg, BloonType.Bad, BloonType.Bloonarius5];
             }
             //string[] expertRanks = ["Blue", "Green", "Yellow", "Pink", "Lead", "Rainbow", "Lead", "RainbowRegrow", "CeramicFortified", "MoabFortified"]; //60-79
             //string[] freeplayRanks = ["Red", "Blue", "Green", "Yellow", BloonID<ClassicBlack>(), BloonID<ClassicWhite>(), BloonID<ClassicLeadF>(), BloonID<ClassicRainbow>(), BloonID<ClassicCeramicF>(), BloonID<ClassicMoabF>()]; //80+

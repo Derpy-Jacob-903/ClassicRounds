@@ -49,7 +49,7 @@ namespace ClassicRounds.Rounds
         public float ABSTL(int bloonCount = 50, int bloonRank = 11, int curLevel = 33, RoundModel? roundModel = null, float delay = 0)
         {
             if (roundModel is null) { ModHelper.Log<ClassicRoundsMod>("Btd3StandardRounds.ABSTL() was not given a roundModel, or was given a null roundModel."); return delay + 20; }
-            string[] ranks = ["Red", "Blue", "Green", "Yellow", "Pink", "Black", "White", "Zebra", "Lead", "Rainbow", BloonID<OliveCamo>(), "Ceramic", "Moab", "Bfb", "Zomg", "Bad"];
+            string[] ranks = ["Red", "Blue", "Green", "Yellow", "Pink", "Black", "White", "Zebra", "Lead", "Rainbow", BloonID<OliveCamo>(), "Ceramic", "Moab", "Bfb", "Zomg", "Bad", "Bloonarius5"];
             roundModel.AddBloonGroup(ranks[bloonRank - 1], bloonCount, delay, delay + BloonInterval(curLevel) * bloonCount);
 
             delay += BloonInterval(curLevel) * bloonCount;

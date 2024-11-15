@@ -31,7 +31,6 @@
     <ItemGroup>
 		<!--Remove this later (post 0.3.0)
       <Compile Remove="rounds\BTD5.cs" />-->
-      <Compile Remove="rounds\BTD5.cs" />
       <Compile Remove="towers\ClassicRoadSpikes.cs" />
     </ItemGroup>
 

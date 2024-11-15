@@ -33,17 +33,19 @@ public class ClassicRoundsMod : BloonsTD6Mod
     {
         ModHelper.Msg<ClassicRoundsMod>("ClassicRounds loaded!");
     }
-    public static readonly ModSettingBool ReducedCashinClassicModes = new(false) { description = "Reduce income in BTD3 GameModes by 20%, approximately negating the extra income of Pink and Zebra children from Cermamics." };
-    public static readonly ModSettingBool UseClassicBloonsinClassicModes = new(true) { description = "Use Bloons that lack Pink and Zebra children in BTD3 RoundSets." };
-    public static readonly ModSettingBool DisableSuperCermaicsinClassicModes = new(true) { description = "Disables Super Cermaics the BTD3 and BTD4 GameModes\nLikely increases lag." };
-    public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(true) { description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
+    public static readonly ModSettingBool ReducedCashinClassicModes = new(false) { displayName = "Reduced Cash in Classic Modes", description = "Reduce income in BTD3 GameModes by 20%, approximately negating the extra income of Pink and Zebra children from Cermamics." };
+    public static readonly ModSettingBool UseClassicBloonsinClassicModes = new(true) { displayName = "Use Classic Bloons in Classic Modes", description = "Use Bloons that lack Pink and Zebra children in BTD3 RoundSets." };
+    public static readonly ModSettingBool DisableSuperCermaicsinClassicModes = new(true) { displayName = "Disable Super Cermaics in Classic Modes", description = "Disables Super Cermaics the BTD3 and BTD4 GameModes\nLikely increases lag in freeplay." };
+    public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(true) { displayName = "Log on Nth Generated BTD5 Round", description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
+    public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(10) { displayName = "Log on ChangeCeramicsAndChildren", description = "(Unused as of v0.3.0)\nLogs every Nth round generated for BTD5 Apopalypse and Freeplay.\nIf not postive, no logs will be made." };
+    public static readonly ModSettingBool VerboseLogsForGeneratedBTD5Rounds = new(false) { displayName = "Verbose Logs for Generated BTD5 Rounds", description = "(Unused as of v0.3.0)\nLogs on every wave generated for BTD5 Apopalypse and Freeplay. Very Spammy." };
 
-    public static readonly ModSettingInt GeneratedBTD3FreeplayRounds = new(100) { description = "How many rounds to generate for the BTD3 Standard RoundSet past round 50.\nValues above 100 (150 total) are untested." };
-    public static readonly ModSettingInt GeneratedBTD4FreeplayRounds = new(180) { description = "How many rounds to generate for the BTD4 Standard RoundSet past round 75.\nValues above 180 (255 total) are untested." };
-    public static readonly ModSettingInt GeneratedBTD5FreeplayRounds = new(314) { description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Standard RoundSet past round 85." };
-
-    public static readonly ModSettingBool DisableBTD4ApopalypseRounds = new(true) { description= "Disables the BTD4 Apopalypse GameMode" };
-    public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(255) { description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?" };
+    public static readonly ModSettingInt GeneratedBTD3FreeplayRounds = new(100) { displayName = "Generated BTD3 Freeplay Rounds", description = "How many rounds to generate for the BTD3 Standard RoundSet past round 50.\nHigher values increase load times.\nValues above 100 (150 total) are untested." };
+    public static readonly ModSettingInt GeneratedBTD4FreeplayRounds = new(75) { displayName = "Generated BTD4 Freeplay Rounds", description = "How many rounds to generate for the BTD4 Standard RoundSet past round 75.\nHigher values increase load times.\nValues above 180 (255 total) are untested." };
+    public static readonly ModSettingInt GeneratedBTD5FreeplayRounds = new(65) { displayName = "Generated BTD5 Freeplay Rounds", description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Standard RoundSet past round 85.\nHigher values increase load times." };
+	
+    public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(200) { displayName = "Generated BTD4 Apopalypse Rounds", description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?\nHigher values increase load times." };
+    public static readonly ModSettingInt GeneratedBTD5ApopalypseRounds = new(200) { displayName = "Generated BTD5 Apopalypse Rounds", description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Apopalypse RoundSet?\nHigher values increase load times." };
 }
 
 public class MonkeyGlue : ModDisplay2D
@@ -61,7 +63,8 @@ static class ChangeCeramicsAndChildrenPatch
         var gameMode = InGame.instance.GetGameModel().gameMode;
 
         if (gameMode.Contains("ClassicRounds-")
-            && !gameMode.Contains('5') && !gameMode.Contains("BTDB") && !gameMode.Contains("BATTD")
+            && gameMode.Contains('5') && InGame.instance.currentRoundId < 86
+            && !gameMode.Contains("BTDB") && !gameMode.Contains("BATTD")
             && ClassicRoundsMod.DisableSuperCermaicsinClassicModes)
         {
             ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren skipped successfully.");
@@ -78,6 +81,8 @@ static class ChangeCeramicsAndChildrenPatch
 static class IsUpgradePathClosedPatch //
 {
     [HarmonyPostfix]
+
+#pragma warning disable CS1587 // XML comment is not placed on a valid language element
     /// <summary>
     /// Notes: 
     /// - No Camos for Counter-Espionage or Radar Scanner
@@ -85,6 +90,7 @@ static class IsUpgradePathClosedPatch //
     /// - No Regrows OR life regen for Heart of Oak.
     /// </summary>
     private static void Postfix(TowerSelectionMenu __instance, int path, ref bool __result)
+#pragma warning restore CS1587 // XML comment is not placed on a valid language element
     {
         if (__instance.selectedTower == null) { return; }
         if (InGame.instance.bridge.IsSandboxMode()) { return; }
