@@ -21,6 +21,7 @@ using UnityEngine.InputSystem.Utilities;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using BTD_Mod_Helper.Api.Display;
 using Il2CppSystem.Runtime.InteropServices;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 
 [assembly: MelonInfo(typeof(ClassicRounds.ClassicRoundsMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -36,16 +37,18 @@ public class ClassicRoundsMod : BloonsTD6Mod
     public static readonly ModSettingBool ReducedCashinClassicModes = new(false) { displayName = "Reduced Cash in Classic Modes", description = "Reduce income in BTD3 GameModes by 20%, approximately negating the extra income of Pink and Zebra children from Cermamics." };
     public static readonly ModSettingBool UseClassicBloonsinClassicModes = new(true) { displayName = "Use Classic Bloons in Classic Modes", description = "Use Bloons that lack Pink and Zebra children in BTD3 RoundSets." };
     public static readonly ModSettingBool DisableSuperCermaicsinClassicModes = new(true) { displayName = "Disable Super Cermaics in Classic Modes", description = "Disables Super Cermaics the BTD3 and BTD4 GameModes\nLikely increases lag in freeplay." };
-    public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(true) { displayName = "Log on Nth Generated BTD5 Round", description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
-    public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(10) { displayName = "Log on ChangeCeramicsAndChildren", description = "(Unused as of v0.3.0)\nLogs every Nth round generated for BTD5 Apopalypse and Freeplay.\nIf not postive, no logs will be made." };
-    public static readonly ModSettingBool VerboseLogsForGeneratedBTD5Rounds = new(false) { displayName = "Verbose Logs for Generated BTD5 Rounds", description = "(Unused as of v0.3.0)\nLogs on every wave generated for BTD5 Apopalypse and Freeplay. Very Spammy." };
+    public static readonly ModSettingBool DisableSuperCermaicsBTD5 = new(true) { displayName = "Disable Super Cermaics in BTD5 Modes from Round 81-85", description = "Disables Super Cermaics in BTD5 GameModes from Round 81-85." };
+    public static readonly ModSettingBool DisableSuperCermaicsBATTD = new(true) { displayName = "Disable Super Cermaics in BATTD Modes", description = "(Unused as of v0.4.0)\nDisables Super Cermaics in BATTD GameModes" };
+    public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(false) { displayName = "Log on ChangeCeramicsAndChildren", description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
+public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(10) { displayName = "Log on Nth Generated BTD5 Round", description = "Logs every Nth round generated for BTD5 Apopalypse and Freeplay.\nIf not postive, no logs will be made." };
+    public static readonly ModSettingBool VerboseLogsForGeneratedBTD5Rounds = new(false) { displayName = "Verbose Logs for Generated BTD5 Rounds", description = "Logs on every wave generated for BTD5 Apopalypse and Freeplay. Very Spammy." };
 
     public static readonly ModSettingInt GeneratedBTD3FreeplayRounds = new(100) { displayName = "Generated BTD3 Freeplay Rounds", description = "How many rounds to generate for the BTD3 Standard RoundSet past round 50.\nHigher values increase load times.\nValues above 100 (150 total) are untested." };
     public static readonly ModSettingInt GeneratedBTD4FreeplayRounds = new(75) { displayName = "Generated BTD4 Freeplay Rounds", description = "How many rounds to generate for the BTD4 Standard RoundSet past round 75.\nHigher values increase load times.\nValues above 180 (255 total) are untested." };
-    public static readonly ModSettingInt GeneratedBTD5FreeplayRounds = new(65) { displayName = "Generated BTD5 Freeplay Rounds", description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Standard RoundSet past round 85.\nHigher values increase load times." };
+    public static readonly ModSettingInt GeneratedBTD5FreeplayRounds = new(65) { displayName = "Generated BTD5 Freeplay Rounds", description = "How many rounds to generate for the BTD5 Standard RoundSet past round 85.\nHigher values increase load times." };
 	
-    public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(200) { displayName = "Generated BTD4 Apopalypse Rounds", description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?\nHigher values increase load times." };
-    public static readonly ModSettingInt GeneratedBTD5ApopalypseRounds = new(200) { displayName = "Generated BTD5 Apopalypse Rounds", description = "(Unused as of v0.3.0)\nHow many rounds to generate for the BTD5 Apopalypse RoundSet?\nHigher values increase load times." };
+    public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(150) { displayName = "Generated BTD4 Apopalypse Rounds", description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?\nHigher values increase load times." };
+    public static readonly ModSettingInt GeneratedBTD5ApopalypseRounds = new(150) { displayName = "Generated BTD5 Apopalypse Rounds", description = "How many rounds to generate for the BTD5 Apopalypse RoundSet?\nHigher values increase load times.\nValues above 399 may cause issues (BTD5 crashes at that point) and are untested." };
 }
 
 public class MonkeyGlue : ModDisplay2D
@@ -62,15 +65,17 @@ static class ChangeCeramicsAndChildrenPatch
     {
         var gameMode = InGame.instance.GetGameModel().gameMode;
 
-        if (gameMode.Contains("ClassicRounds-")
-            && gameMode.Contains('5') && InGame.instance.currentRoundId < 86
-            && !gameMode.Contains("BTDB") && !gameMode.Contains("BATTD")
-            && ClassicRoundsMod.DisableSuperCermaicsinClassicModes)
+        if 
+        (
+            gameMode.Contains("ClassicRounds-") && gameMode.Contains('5') && InGame.instance.currentRoundId < 86 && ClassicRoundsMod.DisableSuperCermaicsBTD5 ||
+            gameMode.Contains("ClassicRounds-") && gameMode.Contains("BATTD") && ClassicRoundsMod.DisableSuperCermaicsBATTD ||
+            gameMode.Contains("ClassicRounds-") && (gameMode.Contains('1') || gameMode.Contains('2') || gameMode.Contains('3')) && ClassicRoundsMod.DisableSuperCermaicsinClassicModes
+        )
         {
-            ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren skipped successfully.");
+            if (ClassicRoundsMod.LogOnChangeCeramicsAndChildren) ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren skipped successfully.");
             return false; // Skip the original method
         }
-        ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren not skipped successfully.");
+        if (ClassicRoundsMod.LogOnChangeCeramicsAndChildren) ModHelper.Log<ClassicRoundsMod>("ProgressiveDifficultyManager.ChangeCeramicsAndChildren not skipped successfully.");
         return true; // Continue with the original method
     }
 }
@@ -95,7 +100,7 @@ static class IsUpgradePathClosedPatch //
         if (__instance.selectedTower == null) { return; }
         if (InGame.instance.bridge.IsSandboxMode()) { return; }
 
-        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-") && (!InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BATTD") || !InGame.instance.GetGameModel().gameMode.Contains("BTDB2")))
+        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-"))  // && (!InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BATTD") || !InGame.instance.GetGameModel().gameMode.Contains("BTDB2")))
         {
             Il2CppAssets.Scripts.Simulation.Towers.Tower tower = __instance.selectedTower.tower;
             if (tower.towerModel.IsHero()) { return; }
@@ -144,7 +149,7 @@ internal static class InGame_StartMatch
         {
             foreach (var b in __instance.GetAllBloonToSim())
             {
-                if (b.Def.baseId.Contains("ClassicRounds-Classic") || (b.Def.bloonProperties & BloonProperties.Black) != 0)
+                if (b.Def.baseId.Contains("ClassicRounds-Classic") || (b.Def.bloonProperties & BloonProperties.Black) != 0 || b.Def.tags.Contains("Ceramic"))
                 {
                     b.Def.bloonProperties |= BloonProperties.Purple;
                 }
@@ -175,6 +180,23 @@ internal static class InGame_StartMatch
                     }
                 }
 
+                if ((name.Contains('1') || name.Contains('2')) && t.GetHeroModel() is not null)
+                {
+                    t.GetHeroModel().xpScale *= 5;
+                }
+                if (name.Contains('3') && t.GetHeroModel() is not null)
+                {
+                    t.GetHeroModel().xpScale *= 2.5f;
+                }
+                if (name.Contains('4') && t.GetHeroModel() is not null)
+                {
+                    t.GetHeroModel().xpScale *= 5/3;
+                }
+                if (name.Contains('5') && t.GetHeroModel() is not null)
+                {
+                    t.GetHeroModel().xpScale *= 1.25f;
+                }
+
                 if (t.baseId == "PowersInShop-GlueTrap" && (IsClassic(name) || name.Contains('4')))
                 {
                     if (IsClassic(name)) { t.cost = Dart * 0.20f; }
@@ -196,7 +218,6 @@ internal static class InGame_StartMatch
 
                 if (t.baseId == "PowersInShop-MoabMine")
                 {
-
                     t.cost = Dart * 0.10f;
                     foreach (var a in __instance.GetGameModel().GetTowerFromId("MonkeyAce-020").GetDescendants<AttackAirUnitModel>().ToList())
                     {
@@ -206,6 +227,7 @@ internal static class InGame_StartMatch
                             t.icon = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference(VanillaSprites.ExplodingPineappleUpgradeIcon);
                             t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel = a.weapons[0].projectile;
                             var v = t.GetBehavior<CreateProjectileOnTowerDestroyModel>().projectileModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile;
+                            v.GetDamageModel().damage = 3;
                             v.GetBehavior<DamageModifierForTagModel>().tag = "Moabs"; v.GetBehavior<DamageModifierForTagModel>().tags[0] = "Moabs";
                             v.GetBehavior<DamageModifierForTagModel>().damageAddative = 3;
                         }
@@ -268,9 +290,14 @@ internal static class InGame_StartMatch
                     {
                         foreach (var w in a.weapons)
                         {
-                            if (!(t.HasUpgrade(0, 2) || t.HasUpgrade(2, 2)))
+                            if (!t.HasUpgrade(0, 2))
                             {
                                 w.projectile.GetDescendant<DamageModel>().damage--;
+                            }
+
+                            if (t.HasUpgrade(2, 2))
+                            {
+                                w.projectile.AddBehavior<DamageModifierForBloonStateModel>(new DamageModifierForBloonStateModel("DamageModifierForBloonStateModel_", "Ice", 1, 1, false, false, true));
                             }
                         }
                     }
@@ -283,7 +310,11 @@ internal static class InGame_StartMatch
                     {
                         foreach (var w in a.weapons)
                         {
-                            if (t.HasUpgrade(1, 2)) { w.projectile.pierce--; }
+                            if (t.HasUpgrade(0, 2) || t.HasUpgrade(1, 4)) 
+                            { 
+                                w.projectile.pierce--; 
+                                w.projectile.GetDamageModel().immuneBloonProperties &= BloonProperties.Purple; 
+                            }
                         }
                     }
                 }
@@ -314,11 +345,12 @@ internal static class InGame_StartMatch
                     {
                         var attackModel = t.GetAttackModel();
                         attackModel.weapons[0].projectile.RemoveBehaviors<WindModel>();
+                        attackModel.weapons[0].projectile.AddBehavior<FreezeModel>(__instance.GetGameModel().GetTowerModel("IceMonkey").GetDescendant<FreezeModel>());
                     }
                 }
                 if (t.baseId == "WizardMonkey")
                 {
-                    t.cost = Dart * 2;
+                    t.cost = Dart * 3.75f;
                     foreach (var a in t.GetAttackModels())
                     {
                         foreach (var w in a.weapons)
@@ -331,7 +363,7 @@ internal static class InGame_StartMatch
                                     b.immuneBloonProperties = BloonProperties.None;
                                 }
                             }
-                            if (name.Contains('5')) //Energy/Shatter => Plasma/Normal
+                            else if (name.Contains('5')) //Energy/Shatter => Plasma/Normal
                             {
                                 foreach (var b in a.GetDescendants<DamageModel>().ToList())
                                 {
@@ -345,6 +377,20 @@ internal static class InGame_StartMatch
                                     b.immuneBloonProperties &= ~BloonProperties.Black;
                                 }
                             }
+                            if (IsClassic(name) && !t.HasUpgrade(0, 2))
+                            {
+                                foreach (var b in a.GetDescendants<DamageModel>().ToList())
+                                {
+                                    b.immuneBloonProperties &= ~BloonProperties.Black;
+                                }
+                            }
+                            if (name.Contains('5')) //Energy/Shatter => Plasma/Normal
+                            {
+                                foreach (var b in a.GetDescendants<DamageModel>().ToList())
+                                {
+                                    b.immuneBloonProperties &= ~BloonProperties.Lead;
+                                }
+                            }
                         }
                     }
                 }
@@ -353,13 +399,38 @@ internal static class InGame_StartMatch
                     t.cost = Dart * 2.5f;
                     foreach (var a in t.GetAttackModels())
                     {
-                        foreach (var w in a.weapons)
+                        if (a.weapons.Count > 0 && a.weapons[0].projectile is not null)
                         {
-                            if (t.HasUpgrade(1, 2) && IsClassic(name) 
-                                && w.projectile is not null 
-                                && w.projectile.GetBehaviors<WindModel>() is not null)
+                            foreach (var w in a.weapons)
                             {
-                                a.weapons[0].projectile.RemoveBehaviors<WindModel>();
+                                if (w.projectile is not null)
+                                {
+                                    if (a.weapons[0].projectile.GetDamageModel() is not null)
+                                    { a.weapons[0].projectile.GetDamageModel().immuneBloonProperties = BloonProperties.White | BloonProperties.Lead; } // Sharp => Glacier
+
+                                    if (t.HasUpgrade(1, 1) && w.projectile.GetBehaviors<WindModel>() is not null)
+                                    {
+                                        a.weapons[0].projectile.RemoveBehaviors<WindModel>();
+                                        a.weapons[0].projectile.AddBehavior<FreezeModel>(__instance.GetGameModel().GetTowerModel("IceMonkey").GetDescendant<FreezeModel>());
+                                    }
+
+                                    if (t.HasUpgrade(1, 2) && w.projectile.GetBehaviors<WindModel>() is not null)
+                                    {
+                                        //a.weapons[0].projectile.GetDamageModel().immuneBloonProperties &= BloonProperties.Lead; // Glacier => 
+                                        a.weapons[0].projectile.GetDescendant<FreezeModel>().layers++;
+                                        a.weapons[0].projectile.AddBehavior<FreezeModel>(__instance.GetGameModel().GetTowerModel("IceMonkey").GetDescendant<RemoveDamageTypeModifierModel>());
+                                        
+                                    }
+
+                                    if (w.name == "AttackModel_Caltrops_")
+                                    {
+                                        w.AddBehavior(new EmissionsPerRoundFilterModel("EmissionsPerRoundFilterModel_", 10));
+                                        if (t.HasUpgrade(0, 1))
+                                        {
+                                            t.GetBehavior<EmissionsPerRoundFilterModel>().count += 4;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

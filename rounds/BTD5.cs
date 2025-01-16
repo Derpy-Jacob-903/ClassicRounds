@@ -17,9 +17,9 @@ using NullReferenceException = System.NullReferenceException;
 using System.Reflection;
 using Math = System.Math;
 using ClassicRounds.Util;
+using Il2CppAssets.Scripts.Data.Gameplay;
 
-namespace ClassicRounds.Rounds
-{
+namespace ClassicRounds.Rounds;
     /// <summary>
     /// RawBtd5RoundSet
     /// </summary>
@@ -40,7 +40,7 @@ namespace ClassicRounds.Rounds
         public Btd5BloonGroupModel[] Waves { get; set; } = [];
     }
     /// <summary>
-    /// a BloonGroup that uses Booleans for Properties like BTD5.
+    /// a BloonGroup that uses Booleans for Bloon Properties like BTD5.
     /// Defaults to 50 Olive bloons 
     /// </summary>
     public class Btd5BloonGroupModel
@@ -56,21 +56,19 @@ namespace ClassicRounds.Rounds
         /// </summary>
         public bool IsRegen { get; set; } = false;
         /// <summary>
-        /// 
-        /// Skipped if the Bloon is already a Regrow Bloon
+        /// Skipped if the Bloon is already a Camo Bloon
         /// </summary>
         public bool IsCamo { get; set; } = false;
         /// <summary>
-        /// startTime
+        /// Skipped if the Bloon is already a Fortified Bloon
         /// </summary>
         public bool? IsFortified { get; set; } = null;
         /// <summary>
-        /// 
-        /// Skipped if the Bloon is already a Fortified Bloon
+        /// When this group starts emitting, in seconds (frames / 60)
         /// </summary>
         public float StartTime { get; set; } = 0;
         /// <summary>
-        /// When this group starts emitting, in seconds (frames / 60)
+        /// When this group stops emitting, in seconds (frames / 60)
         /// </summary>
         public float Duration { get; set; } = 20;
         /// <summary>
@@ -143,7 +141,6 @@ namespace ClassicRounds.Rounds
                 return raw;
             }
         }
-
 
         public float getInterval(int param1)
         {
@@ -278,26 +275,173 @@ namespace ClassicRounds.Rounds
                 }
             }
         }
-
-    }
-    public class Btd5ImpopRounds : Btd5StandardRounds
+public class Btd5ImpopRounds : Btd5StandardRounds
+{
+    public override string Icon => VanillaSprites.ImpoppableIcon;
+    public override string DisplayName => "BTD5 Impoppable";
+    public override bool AddToOverrideMenu => false;
+    public override void ModifyRoundModels(RoundModel roundModel, int round)
     {
-        public override string Icon => VanillaSprites.ImpoppableIcon;
-        public override string DisplayName => "BTD5 Impoppable";
-        public override bool AddToOverrideMenu => true;
-        public override void ModifyRoundModels(RoundModel roundModel, int round)
+        switch (round)
         {
-            switch (round)
+            case 85:
+                //clear
+                roundModel.RemoveBloonGroup("Zomg");
+                ABSTL(5, 0, 10, false, false, "Zomg", roundModel);
+                break;
+        }
+    }
+}
+
+public class Btd5MasteryRounds : Btd5StandardRounds
+{
+    public override string Icon => VanillaSprites.GoldenBloonIcon;
+    public override string DisplayName => "BTD5 Mastery";
+    public override string Description => "Masteries are only for the BTD5 Elite. Bigger Bloons, bigger rewards, and bigger challenges await this prestigious mode.";
+    public override bool AddToOverrideMenu => true;
+    public override void ModifyRoundModels(RoundModel roundModel, int round)
+    {
+        for (int k = 0; k < roundModel.groups.Length; k++)
+        {
+            BloonGroupModel bloonGroup = roundModel.groups[k];
+
+            if (bloonGroup.bloon == "Red" || bloonGroup.bloon == "ClassicRounds-ClassicRed") bloonGroup.bloon = "Blue";
+            else if (bloonGroup.bloon == "RedRegrow") bloonGroup.bloon = "BlueRegrow";
+            else if (bloonGroup.bloon == "RedCamo" || bloonGroup.bloon == "ClassicRounds-ClassicRedCamo") bloonGroup.bloon = "BlueCamo";
+            else if (bloonGroup.bloon == "RedRegrowCamo") bloonGroup.bloon = "BlueRegrowCamo";
+
+            else if (bloonGroup.bloon == "Blue" || bloonGroup.bloon == "ClassicRounds-ClassicBlue") bloonGroup.bloon = "Green";
+            else if (bloonGroup.bloon == "BlueRegrow") bloonGroup.bloon = "GreenRegrow";
+            else if (bloonGroup.bloon == "BlueCamo" || bloonGroup.bloon == "ClassicRounds-ClassicBlueCamo") bloonGroup.bloon = "GreenCamo";
+            else if (bloonGroup.bloon == "BlueRegrowCamo") bloonGroup.bloon = "GreenRegrowCamo";
+
+            else if (bloonGroup.bloon == "Green" || bloonGroup.bloon == "ClassicRounds-ClassicGreen") bloonGroup.bloon = "Yellow";
+            else if (bloonGroup.bloon == "GreenRegrow") bloonGroup.bloon = "YellowRegrow";
+            else if (bloonGroup.bloon == "GreenCamo" || bloonGroup.bloon == "ClassicRounds-ClassicGreenCamo") bloonGroup.bloon = "YellowCamo";
+            else if (bloonGroup.bloon == "GreenRegrowCamo") bloonGroup.bloon = "YellowRegrowCamo";
+
+            else if (bloonGroup.bloon == "Yellow") bloonGroup.bloon = "Pink";
+            else if (bloonGroup.bloon == "YellowRegrow") bloonGroup.bloon = "PinkRegrow";
+            else if (bloonGroup.bloon == "YellowCamo") bloonGroup.bloon = "PinkCamo";
+            else if (bloonGroup.bloon == "YellowRegrowCamo") bloonGroup.bloon = "PinkRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicYellow") bloonGroup.bloon = "ClassicRounds-ClassicBlack";
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicYellowCamo") bloonGroup.bloon = "ClassicRounds-ClassicBlackCamo";
+
+            else if (bloonGroup.bloon == "Pink") bloonGroup.bloon = "Black";
+            else if (bloonGroup.bloon == "PinkRegrow") bloonGroup.bloon = "BlackRegrow";
+            else if (bloonGroup.bloon == "PinkCamo") bloonGroup.bloon = "BlackCamo";
+            else if (bloonGroup.bloon == "PinkRegrowCamo") bloonGroup.bloon = "BlackRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-Olive") bloonGroup.bloon = "White";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrow") bloonGroup.bloon = "WhiteRegrow";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveCamo") bloonGroup.bloon = "WhiteCamo";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrowCamo") bloonGroup.bloon = "WhiteRegrowCamo";
+
+            else if (bloonGroup.bloon == "Black") bloonGroup.bloon = "White";
+            else if (bloonGroup.bloon == "BlackRegrow") bloonGroup.bloon = "WhiteRegrow";
+            else if (bloonGroup.bloon == "BlackCamo") bloonGroup.bloon = "WhiteCamo";
+            else if (bloonGroup.bloon == "BlackRegrowCamo") bloonGroup.bloon = "WhiteRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicBlack") bloonGroup.bloon = "ClassicRounds-ClassicWhite";
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicBlackCamo") bloonGroup.bloon = "ClassicRounds-ClassicWhiteCamo";
+
+            else if (bloonGroup.bloon == "XStablesMod-Gray") bloonGroup.bloon = "Lead";
+            else if (bloonGroup.bloon == "XStablesMod-GrayRegrow") bloonGroup.bloon = "LeadRegrow";
+            else if (bloonGroup.bloon == "XStablesMod-GrayCamo") bloonGroup.bloon = "LeadCamo";
+            else if (bloonGroup.bloon == "XStablesMod-GrayRegrowCamo") bloonGroup.bloon = "LeadRegrowCamo";
+
+            else if (bloonGroup.bloon == "White") bloonGroup.bloon = "Lead";
+            else if (bloonGroup.bloon == "WhiteRegrow") bloonGroup.bloon = "LeadRegrow";
+            else if (bloonGroup.bloon == "WhiteCamo") bloonGroup.bloon = "LeadCamo";
+            else if (bloonGroup.bloon == "WhiteRegrowCamo") bloonGroup.bloon = "LeadRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicWhite") bloonGroup.bloon = "ClassicRounds-ClassicLead";
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicWhiteCamo") bloonGroup.bloon = "ClassicRounds-ClassicLeadCamo";
+
+            else if (bloonGroup.bloon == "Lead") bloonGroup.bloon = "Zebra";
+            else if (bloonGroup.bloon == "LeadRegrow") bloonGroup.bloon = "ZebraRegrow";
+            else if (bloonGroup.bloon == "LeadCamo") bloonGroup.bloon = "ZebraCamo";
+            else if (bloonGroup.bloon == "LeadRegrowCamo") bloonGroup.bloon = "ZebraRegrowCamo";
+            else if (bloonGroup.bloon == "LeadFortified") { bloonGroup.bloon = "Rainbow"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "LeadRegrowFortified") { bloonGroup.bloon = "RainbowRegrow"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "LeadFortifiedCamo") { bloonGroup.bloon = "RainbowCamo"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "LeadRegrowFortifiedCamo") { bloonGroup.bloon = "RainbowRegrowCamo"; bloonGroup.count *= 2; }
+
+            else if (bloonGroup.bloon == "Purple") bloonGroup.bloon = "Rainbow";
+            else if (bloonGroup.bloon == "PurpleRegrow") bloonGroup.bloon = "RainbowRegrow";
+            else if (bloonGroup.bloon == "PurpleCamo") bloonGroup.bloon = "RainbowCamo";
+            else if (bloonGroup.bloon == "PurpleRegrowCamo") bloonGroup.bloon = "RainbowRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicLead") bloonGroup.bloon = "ClassicRounds-ClassicRainbow";
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicLeadCamo") bloonGroup.bloon = "ClassicRounds-ClassicRainbowCamo";
+
+            else if (bloonGroup.bloon == "MoarBloons-Grey") bloonGroup.bloon = "Rainbow";
+            else if (bloonGroup.bloon == "MoarBloons-GrayRegrow") bloonGroup.bloon = "RainbowRegrow";
+            else if (bloonGroup.bloon == "MoarBloons-GrayCamo") bloonGroup.bloon = "RainbowCamo";
+            else if (bloonGroup.bloon == "MoarBloons-GrayRegrowCamo") bloonGroup.bloon = "RainbowRegrowCamo";
+
+            else if (bloonGroup.bloon == "Zebra") bloonGroup.bloon = "Rainbow";
+            else if (bloonGroup.bloon == "ZebraRegrow") bloonGroup.bloon = "RainbowRegrow";
+            else if (bloonGroup.bloon == "ZebraCamo") bloonGroup.bloon = "RainbowCamo";
+            else if (bloonGroup.bloon == "ZebraRegrowCamo") bloonGroup.bloon = "RainbowRegrowCamo";
+
+            else if (bloonGroup.bloon == "Rainbow") bloonGroup.bloon = "Ceramic";
+            else if (bloonGroup.bloon == "RainbowRegrow") bloonGroup.bloon = "CeramicRegrow";
+            else if (bloonGroup.bloon == "RainbowCamo") bloonGroup.bloon = "CeramicCamo";
+            else if (bloonGroup.bloon == "RainbowRegrowCamo") bloonGroup.bloon = "CeramicRegrowCamo";
+
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicRainbow") bloonGroup.bloon = "ClassicRounds-ClassicCeramic";
+            else if (bloonGroup.bloon == "ClassicRounds-ClassicRainbowCamo") bloonGroup.bloon = "ClassicRounds-ClassicCeramicCamo";
+
+            else if (bloonGroup.bloon == "Ceramic") bloonGroup.bloon = "Moab";
+            else if (bloonGroup.bloon == "CeramicRegrow") bloonGroup.bloon = "Moab";
+            else if (bloonGroup.bloon == "CeramicCamo") bloonGroup.bloon = "Moab";
+            else if (bloonGroup.bloon == "CeramicRegrowCamo") bloonGroup.bloon = "Moab";
+            else if (bloonGroup.bloon == "CeramicFortified") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "CeramicRegrowFortified") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "CeramicFortifiedCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "CeramicRegrowFortifiedCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+
+            else if (bloonGroup.bloon == "XStablesMod-Brick") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickRegrow") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickRegrowCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickFortified") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 4; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickRegrowFortified") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 4; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickFortifiedCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 4; }
+            else if (bloonGroup.bloon == "XStablesMod-BrickRegrowFortifiedCamo") { bloonGroup.bloon = "Moab"; bloonGroup.count *= 4; }
+
+            else if (bloonGroup.bloon == "Moab") bloonGroup.bloon = "Bfb";
+            else if (bloonGroup.bloon == "MoabFortified") { bloonGroup.bloon = "Bfb"; bloonGroup.count *= 2; }
+
+            else if (bloonGroup.bloon == "Bfb") bloonGroup.bloon = "Zomg";
+            else if (bloonGroup.bloon == "BfbFortified") { bloonGroup.bloon = "Zomg"; bloonGroup.count *= 2; }
+
+            else if (bloonGroup.bloon == "Zomg") { bloonGroup.bloon = "Zomg"; }
+            else if (bloonGroup.bloon == "ZomgFortified") { bloonGroup.bloon = "Zomg"; bloonGroup.count *= 2; }
+
+            else if (bloonGroup.bloon == "Ddt" || bloonGroup.bloon == "DdtCamo") { bloonGroup.bloon = "Bfb"; bloonGroup.count *= 2; }
+            else if (bloonGroup.bloon == "DdtFortified" || bloonGroup.bloon == "DdtFortifiedCamo") { bloonGroup.bloon = "Bfb"; bloonGroup.count *= 4; }
+
+            else if (bloonGroup.bloon == "Bad") 
             {
-                case 85:
-                    //clear
-                    roundModel.RemoveBloonGroup("Zomg");
-                    ABSTL(5, 0, 10, false, false, "Zomg", roundModel);
-                    break;
+                bloonGroup.bloon = "Zomg";
+                bloonGroup.count *= 25;
+                roundModel.AddBloonGroup("Bfb", bloonGroup.count * 3/2, bloonGroup.start, bloonGroup.end);
+            }
+
+            else if (bloonGroup.bloon == "BadFortified")
+            {
+                bloonGroup.bloon = "Zomg";
+                bloonGroup.count *= 50;
+                roundModel.AddBloonGroup("Bfb", bloonGroup.count * 3 / 2, bloonGroup.start, bloonGroup.end);
             }
         }
+    }
+}
 
-        public class Btd5ApopRounds : ModRoundSet
+public class Btd5ApopRounds : ModRoundSet
     {
             public override string Icon => VanillaSprites.ApopalypseBtn;
             public override string BaseRoundSet => RoundSetType.Empty;
@@ -436,7 +580,6 @@ namespace ClassicRounds.Rounds
                 }
             }
         }
-}
 
 
 

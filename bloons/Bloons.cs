@@ -8,6 +8,7 @@ using BTD_Mod_Helper.Api;
 using Il2CppAssets.Scripts.Unity.Display;
 using System.Collections.Generic;
 using Il2Cpp;
+using BloonType = BTD_Mod_Helper.Api.Enums.BloonType;
 
 #pragma warning disable 1591
 namespace ClassicRounds.Bloons
@@ -58,6 +59,7 @@ namespace ClassicRounds.Bloons
             bloonModel.MakeChildrenCamo();
         }
     }
+
     public class Glass : ModBloon //BSM2 Glass bloon
     {
         public override string BaseBloon => BloonType.Ceramic;
@@ -117,7 +119,6 @@ namespace ClassicRounds.Bloons
     public class ClassicRed : ModBloon //Pre BTD4 Black, has Yellow children
     {
         public override string BaseBloon => BloonType.Red;
-        protected override int Order => 3;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
 
@@ -135,13 +136,10 @@ namespace ClassicRounds.Bloons
     public class ClassicBlue : ModBloon //Pre BTD4 Black, has Yellow children
     {
         public override string BaseBloon => BloonType.Blue;
-        protected override int Order => 3;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
-            bloonModel.bloonProperties = 0;
             bloonModel.RemoveAllChildren();
             bloonModel.AddToChildren<ClassicRed>(1);
-            bloonModel.layerNumber--;
         }
     }
     public class ClassicBlueCamo : ModBloon<ClassicBlue>
@@ -156,13 +154,10 @@ namespace ClassicRounds.Bloons
     public class ClassicGreen : ModBloon //Pre BTD4 Black, has Yellow children
     {
         public override string BaseBloon => BloonType.Green;
-        protected override int Order => 3;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
-            bloonModel.bloonProperties = 0;
             bloonModel.RemoveAllChildren();
             bloonModel.AddToChildren<ClassicBlue>(1);
-            bloonModel.layerNumber--;
         }
     }
     public class ClassicGreenCamo : ModBloon<ClassicGreen>
@@ -177,13 +172,10 @@ namespace ClassicRounds.Bloons
     public class ClassicYellow : ModBloon //Pre BTD4 Black, has Yellow children
     {
         public override string BaseBloon => BloonType.Yellow;
-        protected override int Order => 3;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
-            bloonModel.bloonProperties = 0;
             bloonModel.RemoveAllChildren();
             bloonModel.AddToChildren<ClassicGreen>(1);
-            bloonModel.layerNumber--;
         }
     }
     public class ClassicYellowCamo : ModBloon<ClassicYellow>
@@ -198,7 +190,6 @@ namespace ClassicRounds.Bloons
     public class ClassicBlack : ModBloon //Pre BTD4 Black, has Yellow children
     {
         public override string BaseBloon => BloonType.Black;
-        protected override int Order => 3;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
             bloonModel.bloonProperties = Il2Cpp.BloonProperties.Black;
@@ -219,7 +210,6 @@ namespace ClassicRounds.Bloons
     public class ClassicWhite : ModBloon //Pre BTD4 White, has Yellow children
     {
         public override string BaseBloon => BloonType.White;
-        protected override int Order => 2;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
             bloonModel.bloonProperties = Il2Cpp.BloonProperties.White;
@@ -259,28 +249,6 @@ namespace ClassicRounds.Bloons
             bloonModel.MakeChildrenCamo();
         }
     }
-    public class ClassicLeadF : ModBloon<ClassicLead>
-    {
-        public override bool Fortified => true;
-        public override string Icon => VanillaSprites.LeadFortified;
-        protected override int Order => 2;
-        public override void ModifyBaseBloonModel(BloonModel bloonModel)
-        {
-            bloonModel.maxHealth = 4;
-        }
-    }
-    public class ClassicLeadFCamo : ModBloon<ClassicLead>
-    {
-        public override bool Camo => true;
-        public override bool Fortified => true;
-        public override string Icon => VanillaSprites.LeadFortifiedCamo;
-
-        public override void ModifyBaseBloonModel(BloonModel bloonModel)
-        {
-            bloonModel.MakeChildrenCamo();
-            bloonModel.maxHealth = 4;
-        }
-    }
 
     public class ClassicRainbow : ModBloon //Pre BTD4 Black, has Black and White children
     {
@@ -313,7 +281,7 @@ namespace ClassicRounds.Bloons
         protected override int Order => 2;
         public override void ModifyBaseBloonModel(BloonModel bloonModel)
         {
-            bloonModel.bloonProperties = Il2Cpp.BloonProperties.White;
+            bloonModel.bloonProperties = Il2Cpp.BloonProperties.White | Il2Cpp.BloonProperties.Purple;
             //bloonModel.AddTag("Ceramic");
             bloonModel.AddTag("White");
             bloonModel.AddTag("Ice");
@@ -334,28 +302,6 @@ namespace ClassicRounds.Bloons
             bloonModel.MakeChildrenCamo();
         }
     }
-    public class ClassicCeramicF : ModBloon<ClassicCeramic>
-    {
-        public override bool Fortified => true;
-        public override string Icon => VanillaSprites.CeramicFortified;
-        protected override int Order => 2;
-        public override void ModifyBaseBloonModel(BloonModel bloonModel)
-        {
-            bloonModel.maxHealth = 18;
-        }
-    }
-    public class ClassicCeramicFCamo : ModBloon<ClassicCeramic>
-    {
-        public override bool Fortified => true;
-        public override bool Camo => true;
-        public override string Icon => VanillaSprites.CeramicFortifiedCamo;
-
-        public override void ModifyBaseBloonModel(BloonModel bloonModel)
-        {
-            bloonModel.maxHealth = 18;
-            bloonModel.MakeChildrenCamo();
-        }
-    }
     public class ClassicMoab : ModBloon
     {
         public override string BaseBloon => BloonType.Moab;
@@ -368,58 +314,11 @@ namespace ClassicRounds.Bloons
             bloonModel.AddBehavior<BadImmunityModel>(new BadImmunityModel("BadImmunityModel_ClassicMoab"));
         }
     }
-    public class ClassicMoabF : ModBloon
-    {
-        public override string BaseBloon => BloonType.MoabFortified;
-        public override string Icon => VanillaSprites.MoabFortifiedIcon;
-        protected override int Order => 2;
-        public override void ModifyBaseBloonModel(BloonModel bloonModel)
-        {
-            bloonModel.RemoveAllChildren();
-            bloonModel.AddToChildren(BloonID<ClassicCeramicF>(), 4);
-            bloonModel.maxHealth = 400;
-            bloonModel.AddBehavior<BadImmunityModel>(new BadImmunityModel("BadImmunityModel_ClassicMoab"));
-        }
-    }
 }
 
 namespace ClassicRounds.Bloons.Display
 {
-    public class ClassicCeramicDisplayF : ModBloonDisplay<ClassicCeramicF>
-    {
-        public override string BaseDisplay => GetBloonDisplay(BloonType.CeramicFortified, Damage);
-
-        public override string Name => base.Name + Damage;
-
-        /// <summary>
-        /// Still need an empty constructor for the type to be loaded
-        /// </summary>
-        public ClassicCeramicDisplayF()
-        {
-        }
-        public override int Damage { get; }
-
-        public ClassicCeramicDisplayF(int damage)
-        {
-            Damage = damage;
-        }
-
-        public override IEnumerable<ModContent> Load()
-        {
-            for (var damage = 0; damage < 5; damage++)
-            {
-                yield return new ClassicCeramicDisplayF(damage);
-            }
-        }
-
-        public override void ModifyDisplayNode(UnityDisplayNode node)
-        {
-            //foreach (var meshRenderer in node.GetMeshRenderers())
-            //{
-            //meshRenderer.SetMainTexture(GetTexture(Name)!);
-            //}
-        }
-    }
+    
     public class ClassicMoabDisplay : ModBloonDisplay<ClassicMoab>
     {
         public override string BaseDisplay => GetBloonDisplay(BloonType.Moab, Damage);
@@ -452,41 +351,6 @@ namespace ClassicRounds.Bloons.Display
             //foreach (var meshRenderer in node.GetMeshRenderers())
             //{
                 //meshRenderer.SetMainTexture(GetTexture(Name)!);
-            //}
-        }
-    }
-    public class ClassicMoabDisplayf : ModBloonDisplay<ClassicMoabF>
-    {
-        public override string BaseDisplay => GetBloonDisplay(BloonType.MoabFortified, Damage);
-
-        public override string Name => base.Name + Damage;
-
-        /// <summary>
-        /// Still need an empty constructor for the type to be loaded
-        /// </summary>
-        public ClassicMoabDisplayf()
-        {
-        }
-        public override int Damage { get; }
-
-        public ClassicMoabDisplayf(int damage)
-        {
-            Damage = damage;
-        }
-
-        public override IEnumerable<ModContent> Load()
-        {
-            for (var damage = 0; damage < 5; damage++)
-            {
-                yield return new ClassicMoabDisplayf(damage);
-            }
-        }
-
-        public override void ModifyDisplayNode(UnityDisplayNode node)
-        {
-            //foreach (var meshRenderer in node.GetMeshRenderers())
-            //{
-            //meshRenderer.SetMainTexture(GetTexture(Name)!);
             //}
         }
     }
