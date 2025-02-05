@@ -22,6 +22,10 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using BTD_Mod_Helper.Api.Display;
 using Il2CppSystem.Runtime.InteropServices;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Unity;
+using System;
+using static MelonLoader.MelonLogger;
 
 [assembly: MelonInfo(typeof(ClassicRounds.ClassicRoundsMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -38,10 +42,11 @@ public class ClassicRoundsMod : BloonsTD6Mod
     public static readonly ModSettingBool UseClassicBloonsinClassicModes = new(true) { displayName = "Use Classic Bloons in Classic Modes", description = "Use Bloons that lack Pink and Zebra children in BTD3 RoundSets." };
     public static readonly ModSettingBool DisableSuperCermaicsinClassicModes = new(true) { displayName = "Disable Super Cermaics in Classic Modes", description = "Disables Super Cermaics the BTD3 and BTD4 GameModes\nLikely increases lag in freeplay." };
     public static readonly ModSettingBool DisableSuperCermaicsBTD5 = new(true) { displayName = "Disable Super Cermaics in BTD5 Modes from Round 81-85", description = "Disables Super Cermaics in BTD5 GameModes from Round 81-85." };
-    public static readonly ModSettingBool DisableSuperCermaicsBATTD = new(true) { displayName = "Disable Super Cermaics in BATTD Modes", description = "(Unused as of v0.4.0)\nDisables Super Cermaics in BATTD GameModes" };
+    public static readonly ModSettingBool DisableSuperCermaicsBATTD = new(true) { displayName = "Disable Super Cermaics in BATTD Modes", description = "(Unused as of v1.0.0)\nDisables Super Cermaics in BATTD GameModes" };
     public static readonly ModSettingBool LogOnChangeCeramicsAndChildren = new(false) { displayName = "Log on ChangeCeramicsAndChildren", description = "Logs every time ProgressiveDifficultyManager.ChangeCeramicsAndChildren is ran, specifying if it was skipped or not." };
-public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(10) { displayName = "Log on Nth Generated BTD5 Round", description = "Logs every Nth round generated for BTD5 Apopalypse and Freeplay.\nIf not postive, no logs will be made." };
+    public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(-1) { displayName = "Log on Nth Generated BTD5 Round", description = "Logs every Nth round generated for BTD5 Apopalypse and Freeplay.\nIf not postive, no logs will be made." };
     public static readonly ModSettingBool VerboseLogsForGeneratedBTD5Rounds = new(false) { displayName = "Verbose Logs for Generated BTD5 Rounds", description = "Logs on every wave generated for BTD5 Apopalypse and Freeplay. Very Spammy." };
+    public static readonly ModSettingBool NPPMKFRILLS = new(false) { displayName = "NPPMKFRILLS on Impoppable", description = "Use Impoppable modifiers on NPPMKFRILLS" };
 
     public static readonly ModSettingInt GeneratedBTD3FreeplayRounds = new(100) { displayName = "Generated BTD3 Freeplay Rounds", description = "How many rounds to generate for the BTD3 Standard RoundSet past round 50.\nHigher values increase load times.\nValues above 100 (150 total) are untested." };
     public static readonly ModSettingInt GeneratedBTD4FreeplayRounds = new(75) { displayName = "Generated BTD4 Freeplay Rounds", description = "How many rounds to generate for the BTD4 Standard RoundSet past round 75.\nHigher values increase load times.\nValues above 180 (255 total) are untested." };
@@ -49,7 +54,50 @@ public static readonly ModSettingInt LogOnNthGeneratedBTD5Round = new(10) { disp
 	
     public static readonly ModSettingInt GeneratedBTD4ApopalypseRounds = new(150) { displayName = "Generated BTD4 Apopalypse Rounds", description = "How many rounds to generate for the BTD4 Apopalypse RoundSet?\nHigher values increase load times." };
     public static readonly ModSettingInt GeneratedBTD5ApopalypseRounds = new(150) { displayName = "Generated BTD5 Apopalypse Rounds", description = "How many rounds to generate for the BTD5 Apopalypse RoundSet?\nHigher values increase load times.\nValues above 399 may cause issues (BTD5 crashes at that point) and are untested." };
+
+    /// <summary>
+    /// Modify xp scales in relation to base hero
+    /// </summary>
+    /// <param name="gameModel">The modified game model for a current match</param>
+    public override void OnNewGameModel(GameModel gameModel)
+    {
+        var name = gameModel.gameMode;
+        float xpScale = 1;
+        if (name.Contains("BTD") && name.Contains("ClassicRounds-"))
+        {
+            if ((name.Contains('1') || name.Contains('2')))
+            {
+                xpScale *= 5;
+            }
+            if (name.Contains('3'))
+            {
+                xpScale *= 2.5f;
+            }
+            if (name.Contains('4'))
+            {
+                xpScale *= 5 / 3;
+            }
+            if (name.Contains('5'))
+            {
+                xpScale *= 1.25f;
+            }
+            foreach (var t in gameModel.towers)
+            {
+                var upgrades = Game.instance.model.GetTowersWithBaseId(t.baseId).MaxBy(model => model.tier)!.appliedUpgrades;
+
+                var myXpCosts = Game.instance.model.GetTowersWithBaseId(t.baseId).MaxBy(model => model.tier)!
+                .appliedUpgrades.Select(Game.instance.model.GetUpgrade).Select(upgrade => upgrade.xpCost).ToArray();
+
+                for (var i = 0; i < upgrades.Length; i++)
+                {
+                    gameModel.GetUpgrade(upgrades[i]).xpCost = Math.Max((int)Math.Round(myXpCosts[i] * xpScale), 1);
+                }
+            }
+        }
+    }
 }
+
+
 
 public class MonkeyGlue : ModDisplay2D
 {
@@ -81,58 +129,92 @@ static class ChangeCeramicsAndChildrenPatch
 }
 
 
-
 [HarmonyPatch(typeof(TowerSelectionMenu), nameof(TowerSelectionMenu.IsUpgradePathClosed))]
-static class IsUpgradePathClosedPatch //
+public static class IsUpgradePathClosedPatch
 {
     [HarmonyPostfix]
-
-#pragma warning disable CS1587 // XML comment is not placed on a valid language element
-    /// <summary>
-    /// Notes: 
-    /// - No Camos for Counter-Espionage or Radar Scanner
-    /// - No Regrows for Grow Blocker
-    /// - No Regrows OR life regen for Heart of Oak.
-    /// </summary>
     private static void Postfix(TowerSelectionMenu __instance, int path, ref bool __result)
-#pragma warning restore CS1587 // XML comment is not placed on a valid language element
     {
-        if (__instance.selectedTower == null) { return; }
-        if (InGame.instance.bridge.IsSandboxMode()) { return; }
+        ModHelper.Log<ClassicRoundsMod>("IsUpgradePathClosed patch called.");
 
-        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-"))  // && (!InGame.instance.GetGameModel().gameMode.Contains("6") || !InGame.instance.GetGameModel().gameMode.Contains("BATTD") || !InGame.instance.GetGameModel().gameMode.Contains("BTDB2")))
+        if (__instance.selectedTower == null)
         {
-            Il2CppAssets.Scripts.Simulation.Towers.Tower tower = __instance.selectedTower.tower;
-            if (tower.towerModel.IsHero()) { return; }
+            ModHelper.Log<ClassicRoundsMod>("Selected tower is null.");
+            return;
+        }
+        if (InGame.instance.bridge.IsSandboxMode())
+        {
+            ModHelper.Log<ClassicRoundsMod>("Sandbox mode is active.");
+            return;
+        }
 
-            if (tower.GetUpgrade(path) == null) { return; }
+        if (InGame.instance.GetGameModel().gameMode.Contains("ClassicRounds-"))
+        {
+            var tower = __instance.selectedTower.tower;
+            if (tower.towerModel.IsHero())
+            {
+                ModHelper.Log<ClassicRoundsMod>("Tower is a hero.");
+                return;
+            }
 
-            //foreach(var i in InGame.instance.GetAllTowerToSim().ToArray()) 
-            //{ 
-            //if( i.tower.model)
-            //}
+            if (tower.GetUpgrade(path) == null)
+            {
+                ModHelper.Log<ClassicRoundsMod>("Upgrade path is null.");
+                return;
+            }
 
             string bid = tower.towerModel.baseId;
             string gamemode = InGame.instance.GetGameModel().gameMode;
-            if (!gamemode.Contains("ClassicRounds-")) { return; }
+            ModHelper.Log<ClassicRoundsMod>($"Game mode: {gamemode}");
+            if (!gamemode.Contains("ClassicRounds-"))
+            {
+                return;
+            }
             else
             {
                 __result = false;
-                if ((bid == "SuperMonkey" || bid == "SpikeFactory") && path == 2) { __result = true; return; } //No bottom path Super or Spike Factory
-                if (gamemode.Contains("BTD3") && (bid == "MonkeyVillage" || bid == "NinjaMonkey") && path == 1) { __result = true; } //See summary
-                if (gamemode.Contains("BTD3") && (bid == "MonkeyAce"  || bid == "HeliPilot" || bid == "Druid") && path == 1 && tower.GetUpgrade(path).tier >= 1) { __result = true; } //ditto
-                if (gamemode.Contains("BTD3") && tower.GetUpgrade(path).tier >= 2) { __result = true; } //No tier 3s and up
-                if (gamemode.Contains("BTD4") && tower.GetUpgrade(path).tier >= 3) { __result = true; } //No tier 4s and up
-                //if (gamemode.Contains("BTD4") && bid == "SuperMonkey" && path == 0 && tower.GetUpgrade(path).tier == 4) { __result = false; } //(not always no) BTD4 Sun Temple
-                if ((gamemode.Contains("BTD5") || gamemode.Contains("BTDB") ) && tower.GetUpgrade(path).tier >= 4) { __result = true; } //No tier 5s and up
+                ModHelper.Log<ClassicRoundsMod>($"Base ID: {bid}, Path: {path}");
+                if ((bid == "SuperMonkey" || bid == "SpikeFactory") && path == 2)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path 3 for SuperMonkey or SpikeFactory is closed.");
+                    return;
+                }
+                if (gamemode.Contains("BTD3") && (bid == "MonkeyVillage") && path == 1)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyVillage is closed in BTD3.");
+                }
+                if (gamemode.Contains("BTD3") && (bid == "MonkeyAce" || bid == "HeliPilot" || bid == "Druid") && path == 1 && tower.GetUpgrade(path).tier >= 1)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyAce, HeliPilot, or Druid is closed in BTD3 if tier >= 1.");
+                }
+                if (gamemode.Contains("BTD3") && tower.GetUpgrade(path).tier >= 2)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 2 is closed in BTD3.");
+                }
+                if (gamemode.Contains("BTD4") && tower.GetUpgrade(path).tier >= 3)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 3 is closed in BTD4.");
+                }
+                if ((gamemode.Contains("BTD5") || gamemode.Contains("BTDB")) && tower.GetUpgrade(path).tier >= 4)
+                {
+                    __result = true;
+                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 4 is closed in BTD5 or BTDB.");
+                }
             }
             return;
         }
     }
 }
 
+
+
 [HarmonyPatch(typeof(InGame), nameof(InGame.StartMatch))]
-internal static class InGame_StartMatch
+public static class InGame_StartMatch
 {
 
     private static bool IsClassic(string name)
@@ -178,23 +260,6 @@ internal static class InGame_StartMatch
                             }
                         }
                     }
-                }
-
-                if ((name.Contains('1') || name.Contains('2')) && t.GetHeroModel() is not null)
-                {
-                    t.GetHeroModel().xpScale *= 5;
-                }
-                if (name.Contains('3') && t.GetHeroModel() is not null)
-                {
-                    t.GetHeroModel().xpScale *= 2.5f;
-                }
-                if (name.Contains('4') && t.GetHeroModel() is not null)
-                {
-                    t.GetHeroModel().xpScale *= 5/3;
-                }
-                if (name.Contains('5') && t.GetHeroModel() is not null)
-                {
-                    t.GetHeroModel().xpScale *= 1.25f;
                 }
 
                 if (t.baseId == "PowersInShop-GlueTrap" && (IsClassic(name) || name.Contains('4')))
@@ -418,8 +483,7 @@ internal static class InGame_StartMatch
                                     {
                                         //a.weapons[0].projectile.GetDamageModel().immuneBloonProperties &= BloonProperties.Lead; // Glacier => 
                                         a.weapons[0].projectile.GetDescendant<FreezeModel>().layers++;
-                                        a.weapons[0].projectile.AddBehavior<FreezeModel>(__instance.GetGameModel().GetTowerModel("IceMonkey").GetDescendant<RemoveDamageTypeModifierModel>());
-                                        
+                                        a.weapons[0].projectile.AddBehavior<RemoveDamageTypeModifierModel>(__instance.GetGameModel().GetTowerModel("IceMonkey-402").GetDescendant<RemoveDamageTypeModifierModel>());
                                     }
 
                                     if (w.name == "AttackModel_Caltrops_")
@@ -427,7 +491,7 @@ internal static class InGame_StartMatch
                                         w.AddBehavior(new EmissionsPerRoundFilterModel("EmissionsPerRoundFilterModel_", 10));
                                         if (t.HasUpgrade(0, 1))
                                         {
-                                            t.GetBehavior<EmissionsPerRoundFilterModel>().count += 4;
+                                            t.GetBehavior<EmissionsPerRoundFilterModel>().count += 10;
                                         }
                                     }
                                 }
@@ -471,7 +535,7 @@ internal static class InGame_StartMatch
                                 if (t.HasUpgrade(1, 1) && w.name.Contains("WeaponModel_Lightning")) //Plasma => Explosive
                                 {
                                     w.projectile.GetDamageModel().immuneBloonProperties |= BloonProperties.Black;
-                                    w.projectile.GetDamageModel().immuneBloonProperties &= BloonProperties.Purple;
+                                    w.projectile.GetDamageModel().immuneBloonProperties |= BloonProperties.Purple;
                                 }
                             }
                         }

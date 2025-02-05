@@ -5,6 +5,8 @@ using Il2CppAssets.Scripts.Models.Difficulty;
 using Il2CppAssets.Scripts.Models.Gameplay.Mods;
 using Il2CppAssets.Scripts.Models;
 using BTD_Mod_Helper.Extensions;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
+using System;
 
 namespace ClassicRounds.GameModes
 {
@@ -122,7 +124,7 @@ namespace ClassicRounds.GameModes
 
         public override string DisplayName => "BTD5 Impoppable";
 
-        public override string Icon => "BTD5Impop";
+        public override string Icon => VanillaSprites.ImpoppableBtn;
 
         public override void ModifyBaseGameModeModel(ModModel gameModeModel)
         {
@@ -148,6 +150,96 @@ namespace ClassicRounds.GameModes
             }
         }
     }
+    public class BTD5Chimps : ModGameMode
+    {
+        protected override int Order => 4;
+        public override string Difficulty => DifficultyType.Hard;
+
+        public override string BaseGameMode => GameModeType.Clicks;
+
+        public override string DisplayName => "BTD5 NPMKFRILLS";
+        public override string Description => "The true test of a BTD5 master. No Powers*, Monkey Knowledge, Income, Road Items, Lives Lost, or Selling.\n *How the fuck do I disable powers?";
+
+        public override string Icon => VanillaSprites.ClicksBtn;
+
+        public override void ModifyBaseGameModeModel(ModModel gameModeModel)
+        {
+            gameModeModel.SetStartingRound(1);
+            gameModeModel.SetEndingRound(85);
+
+            gameModeModel.SetContinuesEnabled(false);
+
+            gameModeModel.SetImpoppable(true);
+
+            gameModeModel.SetMkEnabled(false);
+
+            gameModeModel.SetIncomeEnabled(false);
+            
+
+            gameModeModel.AddMutator( new ChimpsModModel("ChimpsModModel_"));
+            gameModeModel.SetPowersEnabled(false);
+
+            gameModeModel.SetSellingEnabled(false);
+            gameModeModel.SetSellMultiplier(0);
+
+            if (ClassicRoundsMod.NPPMKFRILLS)
+            {
+                gameModeModel.SetBloonHealth(1.5f, BloonTag.Ceramic);
+                gameModeModel.SetBloonHealth(2f, BloonTag.Moabs);
+                gameModeModel.UseRoundSet<Btd5ImpopRounds>();
+            }
+            else
+            {
+                gameModeModel.UseRoundSet<Btd5StandardRounds>();
+            }
+            // New to BTD 4/5/6
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi"));
+            foreach (var i in gameModeModel.GetDescendants<LockTowerModModel>().ToList())
+            {
+                if (i is not null && i.name == "LockTowerModModel_")
+                {
+                    i.name += i.towerToLock;
+                }
+            }
+        }
+    }
+    public class BTD5Mastery : ModGameMode
+    {
+        protected override int Order => 4;
+        public override string Difficulty => DifficultyType.Hard;
+
+        public override string BaseGameMode => GameModeType.None;
+
+        public override string DisplayName => "BTD5 Mastery";
+
+        public override string Icon => VanillaSprites.GoldenBloonIcon;
+
+        public override void ModifyBaseGameModeModel(ModModel gameModeModel)
+        {
+            gameModeModel.SetStartingHealth(100);
+            gameModeModel.SetMaxHealth(100);
+            gameModeModel.SetStartingRound(1);
+            gameModeModel.SetEndingRound(85);
+            gameModeModel.UseRoundSet<Btd5MasteryRounds>();
+            gameModeModel.SetAllCashMultiplier(0.5f);
+            // New to BTD 4/5/6
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Alchemist"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "BeastHandler"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Mermonkey"));
+            gameModeModel.AddMutator(new LockTowerModModel("LockTowerModModel_", "Luigi-Luigi"));
+            foreach (var i in gameModeModel.GetDescendants<LockTowerModModel>().ToList())
+            {
+                if (i is not null && i.name == "LockTowerModModel_")
+                {
+                    i.name += i.towerToLock;
+                }
+            }
+        }
+    }
+
     public class BTD5Deflation : ModGameMode
     {
         protected override int Order => 5;
@@ -186,7 +278,8 @@ namespace ClassicRounds.GameModes
             }
         }
     }
-
+    /*
+    [Obsolete]
     public class BTD5Apopalypse : ModGameMode
     {
         protected override int Order => 5;
@@ -224,4 +317,5 @@ namespace ClassicRounds.GameModes
             }
         }
     }
+    */
 }

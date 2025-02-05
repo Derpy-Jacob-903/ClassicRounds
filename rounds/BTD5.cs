@@ -183,7 +183,7 @@ namespace ClassicRounds.Rounds;
             string[] bloonArray = ["Red", "Blue", "Green", "Yellow", "Pink", "Black", "White", "Lead", "Zebra", "Rainbow", "Ceramic", "Moab", "Bfb", "Zomg", "Bad", "Bloonarius5"];
             if (param4 is null)
             { ABSTL(param1, param2, param1 * param3, param5, param6, "Olive", roundModel); return; }
-            ABSTL(param1, param2, param1 * param3, param5, param6, bloonArray[(int)(param4 - 1)], roundModel); return;
+            ABSTL(param1, param2, param1 * param3, param5, param6, bloonArray[(int)(param4)], roundModel); return;
         }
         /// <summary>
         /// Generates a BloonGroup using variables like BTD5 Moblie and adds it to the given RoundModel.
@@ -280,6 +280,7 @@ public class Btd5ImpopRounds : Btd5StandardRounds
     public override string Icon => VanillaSprites.ImpoppableIcon;
     public override string DisplayName => "BTD5 Impoppable";
     public override bool AddToOverrideMenu => false;
+    public override string BaseRoundSet => "ClassicRounds-Btd5StandardRounds";
     public override void ModifyRoundModels(RoundModel roundModel, int round)
     {
         switch (round)
@@ -299,6 +300,7 @@ public class Btd5MasteryRounds : Btd5StandardRounds
     public override string DisplayName => "BTD5 Mastery";
     public override string Description => "Masteries are only for the BTD5 Elite. Bigger Bloons, bigger rewards, and bigger challenges await this prestigious mode.";
     public override bool AddToOverrideMenu => true;
+    public override string BaseRoundSet => "ClassicRounds-Btd5StandardRounds";
     public override void ModifyRoundModels(RoundModel roundModel, int round)
     {
         for (int k = 0; k < roundModel.groups.Length; k++)
@@ -441,6 +443,8 @@ public class Btd5MasteryRounds : Btd5StandardRounds
     }
 }
 
+
+[System.Obsolete]
 public class Btd5ApopRounds : ModRoundSet
     {
             public override string Icon => VanillaSprites.ApopalypseBtn;
@@ -448,7 +452,7 @@ public class Btd5ApopRounds : ModRoundSet
             public override int DefinedRounds => ClassicRoundsMod.GeneratedBTD5ApopalypseRounds;
             public override bool Rounds1Index => true;
             public override string DisplayName => "BTD5 Apopalypse";
-            public override bool AddToOverrideMenu => true;
+            public override bool AddToOverrideMenu => false;
 
             public Btd5rndm rndm = new();
 
@@ -508,13 +512,14 @@ public class Btd5ApopRounds : ModRoundSet
             {
                     //private function createApopalypseWave(param1:int) : Wave
                     {
+                    var myround = round + 1;
                     var rand = new System.Random();
                     int _loc17_ = -1;
                     bool _loc18_ = false;
                     bool _loc19_ = false;
-                    float _loc3_ = (float)Math.Pow(Math.Min(round / 80, 1), 0.63);
-                    float _loc4 = Math.Min(round / 80, 1);
-                    int _loc7_ = 24 + Math.Min(round / 80, 1) * (90 - 24);
+                    float _loc3_ = (float)Math.Pow(Math.Min(myround / 80, 1), 0.63);
+                    float _loc4 = Math.Min(myround / 80, 1);
+                    int _loc7_ = 24 + Math.Min(myround / 80, 1) * (90 - 24);
                     int _loc9_ = 0 - 8;
                     int _loc10_ = 10;
                     float _loc11_ = 0;
@@ -536,7 +541,7 @@ public class Btd5ApopRounds : ModRoundSet
                     }
                     if (round >= 40)
                     {
-                        _loc13_ = _loc7_ / (3 + 40 * Math.Min((round - 40) / 10, 1));
+                        _loc13_ = _loc7_ / (3 + 40 * Math.Min((myround - 40) / 10, 1));
                         if (_loc13_ * _loc7_ == 0) { ModHelper.Log<ClassicRoundsMod>("Denominator became zero, skipping this iteration"); return; } // Avoid division by zero 
                         ModHelper.Log<ClassicRoundsMod>($"round: {round}, _loc13_: {_loc13_}, Denominator: {_loc13_ * _loc7_}");
                         _loc11_ = 0;
@@ -550,7 +555,7 @@ public class Btd5ApopRounds : ModRoundSet
                     }
                     if (round > 50)
                     {
-                        _loc13_ = _loc7_ / (3 + 30 * Math.Min((round - 50) / 10, 1)); var denominator = 3 + 30 * Math.Min((float)(round - 50) / 10, 1);
+                        _loc13_ = _loc7_ / (3 + 30 * Math.Min((myround - 50) / 10, 1)); var denominator = 3 + 30 * Math.Min((float)(round - 50) / 10, 1);
                         if (_loc13_ * _loc7_ == 0) { ModHelper.Log<ClassicRoundsMod>("Denominator became zero, skipping this iteration"); return; } // Avoid division by zero 
                         _loc11_ = 0;
                         ModHelper.Log<ClassicRoundsMod>($"round: {round}, _loc11_: {_loc11_}, _loc7_: {_loc7_}, _loc13_: {_loc13_}");
@@ -564,7 +569,7 @@ public class Btd5ApopRounds : ModRoundSet
                     }
                     if (round > 60)
                     {
-                        _loc13_ = _loc7_ / (3 + 20 * Math.Min((round - 60) / 10, 1));
+                        _loc13_ = _loc7_ / (3 + 20 * Math.Min((myround - 60) / 10, 1));
                         if (_loc13_ * _loc7_ == 0) { ModHelper.Log<ClassicRoundsMod>("Denominator became zero, skipping this iteration"); return; } // Avoid division by zero 
                         _loc11_ = 0;
                         while (_loc11_ < _loc7_)

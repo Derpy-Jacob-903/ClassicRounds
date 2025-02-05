@@ -29,14 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-		<!--Remove this later (post 0.3.0)
-      <Compile Remove="rounds\BTD5.cs" />-->
       <Compile Remove="towers\ClassicRoadSpikes.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="rounds\AdventureTimeRounds.json" />
-      <None Remove="rounds\DefaultBTD5rounds.json" />
     </ItemGroup>
 
     <ItemGroup>
