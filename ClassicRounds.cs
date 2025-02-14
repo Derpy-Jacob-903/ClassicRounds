@@ -135,16 +135,16 @@ internal static class IsUpgradePathClosedPatch
     [HarmonyPostfix]
     private static void Postfix(TowerSelectionMenu __instance, int path, ref bool __result)
     {
-        ModHelper.Log<ClassicRoundsMod>("IsUpgradePathClosed patch called.");
+        //ModHelper.Log<ClassicRoundsMod>("IsUpgradePathClosed patch called.");
 
         if (__instance.selectedTower == null)
         {
-            ModHelper.Log<ClassicRoundsMod>("Selected tower is null.");
+            //ModHelper.Log<ClassicRoundsMod>("Selected tower is null.");
             return;
         }
         if (InGame.instance.bridge.IsSandboxMode())
         {
-            ModHelper.Log<ClassicRoundsMod>("Sandbox mode is active.");
+            //ModHelper.Log<ClassicRoundsMod>("Sandbox mode is active.");
             return;
         }
 
@@ -153,19 +153,19 @@ internal static class IsUpgradePathClosedPatch
             var tower = __instance.selectedTower.tower;
             if (tower.towerModel.IsHero())
             {
-                ModHelper.Log<ClassicRoundsMod>("Tower is a hero.");
+                //ModHelper.Log<ClassicRoundsMod>("Tower is a hero.");
                 return;
             }
 
             if (tower.GetUpgrade(path) == null)
             {
-                ModHelper.Log<ClassicRoundsMod>("Upgrade path is null.");
+                //ModHelper.Log<ClassicRoundsMod>("Upgrade path is null.");
                 return;
             }
 
             string bid = tower.towerModel.baseId;
             string gamemode = InGame.instance.GetGameModel().gameMode;
-            ModHelper.Log<ClassicRoundsMod>($"Game mode: {gamemode}");
+            //ModHelper.Log<ClassicRoundsMod>($"Game mode: {gamemode}");
             if (!gamemode.Contains("ClassicRounds-"))
             {
                 return;
@@ -173,37 +173,37 @@ internal static class IsUpgradePathClosedPatch
             else
             {
                 __result = false;
-                ModHelper.Log<ClassicRoundsMod>($"Base ID: {bid}, Path: {path}");
+                //ModHelper.Log<ClassicRoundsMod>($"Base ID: {bid}, Path: {path}");
                 if ((bid == "SuperMonkey" || bid == "SpikeFactory") && path == 2)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path 3 for SuperMonkey or SpikeFactory is closed.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path 3 for SuperMonkey or SpikeFactory is closed.");
                     return;
                 }
                 if (gamemode.Contains("BTD3") && (bid == "MonkeyVillage") && path == 1)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyVillage is closed in BTD3.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyVillage is closed in BTD3.");
                 }
                 if (gamemode.Contains("BTD3") && (bid == "MonkeyAce" || bid == "HeliPilot" || bid == "Druid") && path == 1 && tower.GetUpgrade(path).tier >= 1)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyAce, HeliPilot, or Druid is closed in BTD3 if tier >= 1.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path 2 for MonkeyAce, HeliPilot, or Druid is closed in BTD3 if tier >= 1.");
                 }
                 if (gamemode.Contains("BTD3") && tower.GetUpgrade(path).tier >= 2)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 2 is closed in BTD3.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path with tier >= 2 is closed in BTD3.");
                 }
                 if (gamemode.Contains("BTD4") && tower.GetUpgrade(path).tier >= 3)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 3 is closed in BTD4.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path with tier >= 3 is closed in BTD4.");
                 }
                 if ((gamemode.Contains("BTD5") || gamemode.Contains("BTDB")) && tower.GetUpgrade(path).tier >= 4)
                 {
                     __result = true;
-                    ModHelper.Log<ClassicRoundsMod>("Path with tier >= 4 is closed in BTD5 or BTDB.");
+                    //ModHelper.Log<ClassicRoundsMod>("Path with tier >= 4 is closed in BTD5 or BTDB.");
                 }
             }
             return;

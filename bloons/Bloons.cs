@@ -76,8 +76,8 @@ namespace ClassicRounds.Bloons
             bloonModel.maxHealth = 5;
             bloonModel.leakDamage = 5;
             bloonModel.RemoveAllChildren();
-            bloonModel.AddToChildren(BloonType.White);
-            bloonModel.AddToChildren(BloonType.White);
+            bloonModel.AddToChildren(BloonType.Zebra);
+            bloonModel.AddToChildren(BloonType.Zebra);
             bloonModel.danger = 7.5f;
             bloonModel.bloonProperties = BloonProperties.Purple;
         }

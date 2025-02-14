@@ -81,13 +81,14 @@ namespace ClassicRounds.Rounds;
             {
                 throw new System.ArgumentException($"'{nameof(roundModel)}' cannot be null.", nameof(roundModel));
             }
+            //if (string.IsNullOrWhiteSpace(Bloon))
+            //{
+                //throw new System.ArgumentException($"'{nameof(Bloon)}' cannot be null or whitespace.", nameof(Bloon));
+            //}
             if (string.IsNullOrWhiteSpace(Bloon))
             {
-                throw new System.ArgumentException($"'{nameof(Bloon)}' cannot be null or whitespace.", nameof(Bloon));
-            }
-            if (string.IsNullOrWhiteSpace(Bloon))
-            {
-                ModHelper.Log<ClassicRoundsMod>("Btd5BloonGroupModel is using a Olive Bloon.");
+                ModHelper.Log<ClassicRoundsMod>("Btd5BloonGroupModel was null or whitespace, defaulting to Olive Bloons.");
+                Bloon = "ClassicRounds-Olive";
             }
             string bloon = Bloon;
             //convert all caps names to tile case (MOAB ==> Moab)
@@ -101,7 +102,7 @@ namespace ClassicRounds.Rounds;
                 { IsRegen = false; ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.AddBloonGroup() was given a Regrow Bloon. IsRegen should be used to add Regrow Bloons."); }
             if (IsRegen) { bloon += "Regrow"; }
             if (Bloon.EndsWith("Fortified") || Bloon.EndsWith("FortifiedCamo") || IsFortified is null) 
-                { IsFortified = false; ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.AddBloonGroup() was given a Fortified Bloon. IsFortified should be used to add Fortified Bloons."); }
+                { IsFortified = false; /*ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.AddBloonGroup() was given a Fortified Bloon. IsFortified should be used to add Fortified Bloons."); */}
             if ((bool)IsFortified) { bloon += "Fortified"; }
             if (Bloon.EndsWith("Camo")) { IsCamo = false; ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.AddBloonGroup() was given a Camo Bloon. IsCamo should be used to add Camo Bloons."); }
             if (IsCamo) { bloon += "Camo"; }
@@ -201,7 +202,7 @@ namespace ClassicRounds.Rounds;
             if (Bloon.StartsWith("DDT")) { bloon = "Ddt"; }
             if (Bloon.StartsWith("BAD")) { bloon = "Bad"; }
             //vailtdate properties
-            if (Bloon.EndsWith("Fortified") || Bloon.EndsWith("FortifiedCamo")) { ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.ABSTL() was given a Fortified Bloon."); }
+            //if (Bloon.EndsWith("Fortified") || Bloon.EndsWith("FortifiedCamo")) { ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.ABSTL() was given a Fortified Bloon."); }
             if (Bloon.EndsWith("Regrow") || Bloon.EndsWith("RegrowCamo")) { IsRegen = false; ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.ABSTL() was given a Regrow Bloon. IsRegen should be used to add Regrow Bloons."); }
             if (IsRegen) { bloon += "Regrow"; }
             if (Bloon.EndsWith("Camo")) { IsCamo = false; ModHelper.Log<ClassicRoundsMod>("Btd5StandardRounds.ABSTL() was given a Camo Bloon. IsCamo should be used to add Camo Bloons."); }
@@ -270,7 +271,7 @@ namespace ClassicRounds.Rounds;
                     _loc9_++;
                     }
                     //return _loc2_;
-                    if (round % ClassicRoundsMod.LogOnNthGeneratedBTD5Round == 0 && ClassicRoundsMod.LogOnNthGeneratedBTD5Round > 0) { ModHelper.Log<ClassicRoundsMod>("Generated round" + round+ "for"+ this.DisplayName);}
+                    if (round % ClassicRoundsMod.LogOnNthGeneratedBTD5Round == 0 && ClassicRoundsMod.LogOnNthGeneratedBTD5Round > 0) { ModHelper.Log<ClassicRoundsMod>("Generated round " + round+ " for "+ this.DisplayName);}
                     return;
                 }
             }
@@ -335,10 +336,10 @@ public class Btd5MasteryRounds : Btd5StandardRounds
             else if (bloonGroup.bloon == "PinkCamo") bloonGroup.bloon = "BlackCamo";
             else if (bloonGroup.bloon == "PinkRegrowCamo") bloonGroup.bloon = "BlackRegrowCamo";
 
-            else if (bloonGroup.bloon == "ClassicRounds-Olive") bloonGroup.bloon = "White";
-            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrow") bloonGroup.bloon = "WhiteRegrow";
-            else if (bloonGroup.bloon == "ClassicRounds-OliveCamo") bloonGroup.bloon = "WhiteCamo";
-            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrowCamo") bloonGroup.bloon = "WhiteRegrowCamo";
+            else if (bloonGroup.bloon == "ClassicRounds-Olive") bloonGroup.bloon = "Black";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrow") bloonGroup.bloon = "BlackRegrow";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveCamo") bloonGroup.bloon = "BlackCamo";
+            else if (bloonGroup.bloon == "ClassicRounds-OliveRegrowCamo") bloonGroup.bloon = "BlackRegrowCamo";
 
             else if (bloonGroup.bloon == "Black") bloonGroup.bloon = "White";
             else if (bloonGroup.bloon == "BlackRegrow") bloonGroup.bloon = "WhiteRegrow";
@@ -444,7 +445,7 @@ public class Btd5MasteryRounds : Btd5StandardRounds
 }
 
 
-[System.Obsolete]
+/*[System.Obsolete]
 public class Btd5ApopRounds : ModRoundSet
     {
             public override string Icon => VanillaSprites.ApopalypseBtn;
@@ -587,4 +588,4 @@ public class Btd5ApopRounds : ModRoundSet
         }
 
 
-
+*/

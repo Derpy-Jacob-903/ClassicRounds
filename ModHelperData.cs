@@ -3,7 +3,7 @@ namespace ClassicRounds;
 public static class ModHelperData
 {
     public const string WorksOnVersion = "47.0";
-    public const string Version = "1.0.1";
+    public const string Version = "1.0.2";
     public const string Name = "ClassicRounds";
 
     public const string Description = "Adds RoundSets from other Bloons TD games (currently BTD3, BTD4, and BTD5), as well as new game modes that use these roundsets, with added tower and upgrade changes.";
